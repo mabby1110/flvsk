@@ -1,0 +1,98 @@
+:root {
+    --main-bg: black;
+    --component-bg: #242329;
+    --font:aliceblue;
+    --button:#517596;
+}
+
+body,html {
+    background-color: var(--main-bg);
+    color: var(--font);
+    margin: 0;
+}
+
+html {
+    height: 100vh;
+}
+
+body {
+    height: auto;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+}
+
+h1, p {
+    margin: 0;
+}
+
+li {
+    display: flex;
+}
+
+/* ############################# app */
+.container {
+    width:100%;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* ############################# contenido componentes*/
+.parent {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.item {
+    background-color: var(--component-bg);
+    padding: 10px;
+    margin: 10px;
+    flex-grow: 1;
+}
+
+/* ############################# componentes */
+.sucursales {
+    flex-grow: 6;
+    min-width: 100%;
+    max-width: 50rem;
+}
+
+.sucursales .item {
+    background-color: black;
+
+    display: flex;
+    justify-content: center;
+}
+
+.dispositivos {
+    flex-grow: 3;
+    min-width: 15rem;
+    max-width: 25rem;
+}
+
+.acciones {
+    flex-grow: 3;
+    min-width: 15rem;
+    max-width: 25rem;
+}
+
+.consola {
+    flex-grow: 6;
+    min-width: 50%;
+    max-width: 50.625rem;
+}
+
+
