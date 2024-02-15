@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template, request
-import os
+import os, re
 
 
 def create_app(test_config=None):
@@ -22,6 +22,18 @@ def create_app(test_config=None):
         ]
         return dispositivos
     
+    def limpiar_texto(texto):
+        # Eliminar los caracteres '#' y '\r\n' del texto
+        texto_limpio = re.sub(r'#|\r\n', '@', texto)
+        texto_limpio = re.sub(r'\s@|@\s+|@', '$', texto_limpio)
+        texto_limpio = re.sub(r'\$+', '$', texto_limpio)
+
+        # Dividir el texto en oraciones
+        comandos = re.split(r'\$', texto_limpio)
+        comandos.remove('')
+        return comandos
+
+    
     def obtener_sucursales():
         sucursales = [
             "Guadajalara",
@@ -39,6 +51,9 @@ def create_app(test_config=None):
             sucursales = obtener_sucursales()
             respuesta = request.form.to_dict(flat=False)
 
+            if(respuesta['consola'][0] != ''):
+                respuesta['consola'] = limpiar_texto(respuesta['consola'][0])
+
             return render_template("index.html", 
                                    dispositivos=dispositivos,
                                    sucursales=sucursales,
@@ -47,11 +62,13 @@ def create_app(test_config=None):
             # datos iniciales
             dispositivos = obtener_dispositivos()
             sucursales = obtener_sucursales()
+            respuesta = ''
 
             print("get")
 
             return render_template("index.html",
                                    dispositivos=dispositivos,
-                                   sucursales=sucursales)
+                                   sucursales=sucursales,
+                                   respuesta=respuesta)
 
     return app
