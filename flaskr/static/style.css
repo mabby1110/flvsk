@@ -6,6 +6,7 @@
 }
 
 body,html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: var(--main-bg);
     color: var(--font);
     margin: 0;
@@ -22,6 +23,8 @@ body {
 nav {
     display: flex;
     justify-content: center;
+    min-height: 4rem;
+    padding: 10px;
 }
 
 footer {
@@ -29,16 +32,13 @@ footer {
     bottom: 0;
 }
 
-h1, p {
+h1, p, li, ul {
     margin: 0;
-}
-
-li {
-    display: flex;
+    padding: 0;
 }
 
 /* ############################# app */
-.container {
+.container form{
     width:100%;
     padding: 0;
     margin: 0;
@@ -56,11 +56,17 @@ li {
     justify-content: space-evenly;
 }
 
-.item {
+.child {
     background-color: var(--component-bg);
     padding: 10px;
     margin: 10px;
     flex-grow: 1;
+}
+
+.item {
+    width: fit-content;
+    display: flex;
+    justify-content: start;
 }
 
 /* ############################# componentes */
@@ -68,13 +74,6 @@ li {
     flex-grow: 6;
     min-width: 100%;
     max-width: 50rem;
-}
-
-.sucursales .item {
-    background-color: black;
-
-    display: flex;
-    justify-content: center;
 }
 
 .dispositivos {
