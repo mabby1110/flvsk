@@ -32,13 +32,13 @@ footer {
     bottom: 0;
 }
 
-h1, p, li, ul {
+h1, p, li, ul, input {
     margin: 0;
     padding: 0;
 }
 
 /* ############################# app */
-.container form{
+.container {
     width:100%;
     padding: 0;
     margin: 0;
@@ -68,6 +68,14 @@ h1, p, li, ul {
     justify-content: start;
 }
 
+.areaComandos {
+    width: 100%;
+    min-height: 25rem;
+    box-sizing: border-box;
+    vertical-align: top;
+    text-align: left;
+}
+
 /* ############################# componentes */
 .sucursales {
     flex-grow: 6;
@@ -93,4 +101,8 @@ h1, p, li, ul {
     max-width: 50.625rem;
 }
 
+.botonFormulario {
+    flex-grow: 6;
+    min-width: 100%;
+}
 

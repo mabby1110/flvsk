@@ -37,11 +37,12 @@ def create_app(test_config=None):
             # datos personalizados
             dispositivos = obtener_dispositivos()
             sucursales = obtener_sucursales()
-            posted = request.form.to_dict(flat=False)
+            respuesta = request.form.to_dict(flat=False)
 
-            print(posted)
-
-            return render_template("index.html", dispositivos=dispositivos, sucursales=sucursales)
+            return render_template("index.html", 
+                                   dispositivos=dispositivos,
+                                   sucursales=sucursales,
+                                   respuesta=respuesta)
         else:
             # datos iniciales
             dispositivos = obtener_dispositivos()
@@ -49,6 +50,8 @@ def create_app(test_config=None):
 
             print("get")
 
-            return render_template("index.html", dispositivos=dispositivos, sucursales=sucursales)
+            return render_template("index.html",
+                                   dispositivos=dispositivos,
+                                   sucursales=sucursales)
 
     return app

@@ -6,63 +6,69 @@
 
 {% block body %}
     <form method="post">
-        <div class="sucursales parent">
-                {% for sucursal in sucursales %}
-                <ul>
-                    <li class="item">
-                        <p>{{ sucursal }}</p>
-                        <input type="checkbox" name="sucursal" value="{{ sucursal }}">
-                    </li>
-                </ul>
-                {% endfor %}
-        </div>
-
-        <div class="dispositivos parent">
-            <div class="child">
-                <h1>Router</h1>
-                <ul>
-                    {% for dispositivo in dispositivos[0] %}
-                    <li class="item">
-                        <p>{{ dispositivo["hostname"] }}</p>
-                        <p>{{ dispositivo["ip"] }}</p>
-                        <input
-                            type="checkbox"
-                            name="router"
-                            value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
-                    </li>
+        <div class="container">
+            <div class="sucursales parent">
+                    {% for sucursal in sucursales %}
+                    <ul>
+                        <li class="item">
+                            <p>{{ sucursal }}</p>
+                            <input type="checkbox" checked
+                                name="sucursal"
+                                value="{{ sucursal }}">
+                        </li>
+                    </ul>
                     {% endfor %}
-                </ul>
+            </div>
     
-                <h1>Switch</h1>
-                <ul>
-                    {% for dispositivo in dispositivos[1] %}
-                    <li class="item">
-                        <p>{{ dispositivo["hostname"] }}</p>
-                        <p>{{ dispositivo["ip"] }}</p>
-                        <input
-                            type="checkbox"
-                            name="switch"
-                            value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
-                    </li>
-                    {% endfor %}
-                </ul>
-                <button type="submit">Enviar</button>
+            <div class="dispositivos parent">
+                <div class="child">
+                    <h1>Router</h1>
+                    <ul>
+                        {% for dispositivo in dispositivos[0] %}
+                        <li class="item">
+                            <p>{{ dispositivo["hostname"] }}</p>
+                            <p>{{ dispositivo["ip"] }}</p>
+                            <input type="checkbox" checked
+                                name="router"
+                                value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
+                        </li>
+                        {% endfor %}
+                    </ul>
+        
+                    <h1>Switch</h1>
+                    <ul>
+                        {% for dispositivo in dispositivos[1] %}
+                        <li class="item">
+                            <p>{{ dispositivo["hostname"] }}</p>
+                            <p>{{ dispositivo["ip"] }}</p>
+                            <input type="checkbox" checked
+                                name="switch"
+                                value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-        </div>
-
-        <div class="acciones parent">
-            <div class="child">
-                acciones
+    
+            <div class="acciones parent">
+                <div class="child">
+                    acciones
+                </div>
             </div>
-        </div>
+    
+            <div class="consola parent">
+                <div class="child">
+                    <textarea name="consola" id="idConsola" class="areaComandos" cols="30" rows="10">
+                        {{respuesta}}
+                    </textarea>
+                </div>
+            </div>
 
-        <div class="consola parent">
-            <div class="child">
-                consola
+            <div class="botonFormulario parent">
+                <input type = "submit" value = "Enviar" />
             </div>
         </div>
     </form>
-  </body>
 {% endblock %}
 
 {% block footer %}
