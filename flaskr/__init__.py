@@ -15,9 +15,9 @@ def create_app(test_config=None):
                 {"hostname": "router 3", "ip": "192.168.1.102"}
             ],
             [
-                {"hostname": "switch 4", "ip": "192.168.1.100"},
-                {"hostname": "switch 5", "ip": "192.168.1.101"},
-                {"hostname": "switch 6", "ip": "192.168.1.102"}
+                {"hostname": "switch 4", "ip": "192.168.1.200"},
+                {"hostname": "switch 5", "ip": "192.168.1.201"},
+                {"hostname": "switch 6", "ip": "192.168.1.202"}
             ]
         ]
         return dispositivos
@@ -37,8 +37,10 @@ def create_app(test_config=None):
             # datos personalizados
             dispositivos = obtener_dispositivos()
             sucursales = obtener_sucursales()
-            temp = request.form
+            temp = request.form.to_dict(flat=False)
+            
             print(temp)
+            print(request.form)
 
             return render_template("index.html", dispositivos=dispositivos, sucursales=sucursales)
         else:

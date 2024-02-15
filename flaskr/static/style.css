@@ -64,7 +64,6 @@ h1, p, li, ul {
 }
 
 .item {
-    width: fit-content;
     display: flex;
     justify-content: start;
 }

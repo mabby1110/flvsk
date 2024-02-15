@@ -11,7 +11,7 @@
                 <ul>
                     <li class="item">
                         <p>{{ sucursal }}</p>
-                        <input type="checkbox" name="Sucursal" id="{{ sucursal }}" value="{{ sucursal }}">
+                        <input type="checkbox" name="sucursal" value="{{ sucursal }}">
                     </li>
                 </ul>
                 {% endfor %}
@@ -25,18 +25,24 @@
                     <li class="item">
                         <p>{{ dispositivo["hostname"] }}</p>
                         <p>{{ dispositivo["ip"] }}</p>
-                        <input type="checkbox" name="router" id="{{ dispositivo["ip"] }}" value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
+                        <input
+                            type="checkbox"
+                            name="router"
+                            value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
                     </li>
                     {% endfor %}
                 </ul>
     
                 <h1>Switch</h1>
                 <ul>
-                    {% for dispositivo in dispositivos[0] %}
+                    {% for dispositivo in dispositivos[1] %}
                     <li class="item">
                         <p>{{ dispositivo["hostname"] }}</p>
                         <p>{{ dispositivo["ip"] }}</p>
-                        <input type="checkbox" name="switch" id="{{ dispositivo["ip"] }}" value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
+                        <input
+                            type="checkbox"
+                            name="switch"
+                            value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
                     </li>
                     {% endfor %}
                 </ul>
