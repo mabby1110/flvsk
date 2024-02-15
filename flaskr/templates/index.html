@@ -58,13 +58,14 @@
     
             <div class="consola parent">
                 <div class="child">
-                    <textarea name="consola" id="idConsola" class="areaComandos" cols="30" rows="10">
+                    <textarea readonly name="consola" id="consola" class="areaComandos" cols="30" rows="10">
                         {{respuesta}}
                     </textarea>
                 </div>
             </div>
 
             <div class="botonFormulario parent">
+                <input type="file" id="fileInput">
                 <input type = "submit" value = "Enviar" />
             </div>
         </div>
