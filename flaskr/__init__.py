@@ -37,10 +37,9 @@ def create_app(test_config=None):
             # datos personalizados
             dispositivos = obtener_dispositivos()
             sucursales = obtener_sucursales()
-            temp = request.form.to_dict(flat=False)
-            
-            print(temp)
-            print(request.form)
+            posted = request.form.to_dict(flat=False)
+
+            print(posted)
 
             return render_template("index.html", dispositivos=dispositivos, sucursales=sucursales)
         else:
