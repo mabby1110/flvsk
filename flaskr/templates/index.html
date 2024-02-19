@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-    <h1>Flaskr</h1>
+    <h1>Network Admin</h1>
 {% endblock %}
 
 {% block body %}
@@ -22,28 +22,29 @@
     
             <div class="dispositivos parent">
                 <div class="child">
-                    <h1>Router</h1>
+                    <h1>Dispositivos</h1>
+                    <h3>Router</h3>
                     <ul>
                         {% for dispositivo in dispositivos[0] %}
                         <li class="item">
-                            <p>{{ dispositivo["hostname"] }}</p>
-                            <p>{{ dispositivo["ip"] }}</p>
                             <input type="checkbox" checked
                                 name="router"
                                 value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
+                            <p>{{ dispositivo["hostname"] }}</p>
+                            <p>{{ dispositivo["ip"] }}</p>
                         </li>
                         {% endfor %}
                     </ul>
         
-                    <h1>Switch</h1>
+                    <h3>Switch</h3>
                     <ul>
                         {% for dispositivo in dispositivos[1] %}
                         <li class="item">
-                            <p>{{ dispositivo["hostname"] }}</p>
-                            <p>{{ dispositivo["ip"] }}</p>
                             <input type="checkbox" checked
                                 name="switch"
                                 value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
+                            <p>{{ dispositivo["hostname"] }}</p>
+                            <p>{{ dispositivo["ip"] }}</p>
                         </li>
                         {% endfor %}
                     </ul>
@@ -52,7 +53,9 @@
     
             <div class="acciones parent">
                 <div class="child">
-                    acciones
+                    <h1>Acciones</h1>
+                    <input type="button" value="Show Running config">
+                    <input type="button" value="ping">
                 </div>
             </div>
     

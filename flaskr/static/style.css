@@ -32,7 +32,12 @@ footer {
     bottom: 0;
 }
 
-h1, p, li, ul, input {
+h1 {
+    padding: 0;
+    margin: 0 0 1rem;
+}
+
+p, li, ul, input {
     margin: 0;
     padding: 0;
 }
@@ -65,12 +70,13 @@ h1, p, li, ul, input {
 
 .item {
     display: flex;
-    justify-content: start;
+    justify-content: space-around;
+    padding: 4px 0;
 }
 
 .areaComandos {
     width: 100%;
-    min-height: 25rem;
+    height: 100%;
     box-sizing: border-box;
     vertical-align: top;
     text-align: left;

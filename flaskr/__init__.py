@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 import os, re
 
-
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -12,16 +11,29 @@ def create_app(test_config=None):
             [
                 {"hostname": "router 1", "ip": "192.168.1.100"},
                 {"hostname": "router 2", "ip": "192.168.1.101"},
-                {"hostname": "router 3", "ip": "192.168.1.102"}
+                {"hostname": "router 2", "ip": "192.168.1.102"},
+                {"hostname": "router 2", "ip": "192.168.1.103"},
+                {"hostname": "router 2", "ip": "192.168.1.104"},
+                {"hostname": "router 3", "ip": "192.168.1.105"}
             ],
             [
                 {"hostname": "switch 4", "ip": "192.168.1.200"},
-                {"hostname": "switch 5", "ip": "192.168.1.201"},
-                {"hostname": "switch 6", "ip": "192.168.1.202"}
+                {"hostname": "switch 4", "ip": "192.168.1.201"},
+                {"hostname": "switch 4", "ip": "192.168.1.202"},
+                {"hostname": "switch 5", "ip": "192.168.1.203"},
+                {"hostname": "switch 6", "ip": "192.168.1.204"}
             ]
         ]
         return dispositivos
     
+    def obtener_sucursales():
+        sucursales = [
+            "Guadajalara",
+            "Monterrey",
+            "CDMX"
+        ]
+        return sucursales
+
     def limpiar_texto(texto):
         # Eliminar los caracteres '#' y '\r\n' del texto
         texto_limpio = re.sub(r'#|\r\n', '@', texto)
@@ -32,15 +44,6 @@ def create_app(test_config=None):
         comandos = re.split(r'\$', texto_limpio)
         comandos.remove('')
         return comandos
-
-    
-    def obtener_sucursales():
-        sucursales = [
-            "Guadajalara",
-            "Monterrey",
-            "CDMX"
-        ]
-        return sucursales
     
     # rutas
     @app.route("/", methods=['GET', 'POST'])
