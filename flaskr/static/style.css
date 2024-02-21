@@ -37,7 +37,7 @@ h1 {
     margin: 0 0 1rem;
 }
 
-p, li, ul, input {
+p, li, input {
     margin: 0;
     padding: 0;
 }
@@ -70,8 +70,12 @@ p, li, ul, input {
 
 .item {
     display: flex;
-    justify-content: space-around;
     padding: 4px 0;
+    gap: 1rem;
+}
+
+.item ul {
+    margin-left: 4rem;
 }
 
 .areaComandos {
@@ -90,13 +94,13 @@ p, li, ul, input {
 
 .dispositivos {
     flex-grow: 3;
-    min-width: 18rem;
+    min-width: 15rem;
     max-width: 25rem;
 }
 
 .acciones {
-    flex-grow: 1;
-    min-width: 18rem;
+    flex-grow: 3;
+    min-width: 15rem;
     max-width: 25rem;
 }
 

@@ -9,14 +9,12 @@
         <div class="container">
             <div class="sucursales parent">
                     {% for sucursal in sucursales %}
-                    <ul>
-                        <li class="item">
-                            <p>{{ sucursal }}</p>
-                            <input type="checkbox" checked
-                                name="sucursal"
-                                value="{{ sucursal }}">
-                        </li>
-                    </ul>
+                    <div class="item">
+                        <input type="checkbox" checked
+                            name="sucursal"
+                            value="{{ sucursal }}">
+                        <p>{{ sucursal }}</p>
+                    </div>
                     {% endfor %}
             </div>
     
@@ -51,6 +49,15 @@
                     {% endif %}
                 </div>
             </div>
+    
+            <div class="acciones parent">
+                <div class="child">
+                    <h1>Acciones</h1>
+                    <input type="button" value="Show Running config">
+                    <input type="button" value="ping">
+                    <input type = "submit" id="submitButton" value = "Enviar" />
+                </div>
+            </div>
             <div class="consola parent">
                 {% if dispositivos["router"] %}
                 <div class="child">
@@ -76,15 +83,6 @@
                     <input type="file" id="fileInput">
                 </div>
                 {% endif %}
-            </div>
-    
-            <div class="acciones parent">
-                <div class="child">
-                    <h1>Acciones</h1>
-                    <input type="button" value="Show Running config">
-                    <input type="button" value="ping">
-                    <input type = "submit" id="submitButton" value = "Enviar" />
-                </div>
             </div>
         </div>
     </form>
