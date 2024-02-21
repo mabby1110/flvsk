@@ -25,12 +25,12 @@
                     <h1>Dispositivos</h1>
                     <h3>Router</h3>
                     <ul>
-                        {% for dispositivo in dispositivos[0] %}
+                        {% for dispositivo in dispositivos["router"] %}
                         <li class="item">
                             <input type="checkbox" checked
                                 name="router"
-                                value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
-                            <p>{{ dispositivo["hostname"] }}</p>
+                                value="{{ [dispositivo["host"], dispositivo["ip"]] }}">
+                            <p>{{ dispositivo["host"] }}</p>
                             <p>{{ dispositivo["ip"] }}</p>
                         </li>
                         {% endfor %}
@@ -38,12 +38,12 @@
         
                     <h3>Switch</h3>
                     <ul>
-                        {% for dispositivo in dispositivos[1] %}
+                        {% for dispositivo in dispositivos["switch"] %}
                         <li class="item">
                             <input type="checkbox" checked
                                 name="switch"
-                                value="{{ [dispositivo["hostname"], dispositivo["ip"]] }}">
-                            <p>{{ dispositivo["hostname"] }}</p>
+                                value="{{ [dispositivo["host"], dispositivo["ip"]] }}">
+                            <p>{{ dispositivo["host"] }}</p>
                             <p>{{ dispositivo["ip"] }}</p>
                         </li>
                         {% endfor %}
@@ -71,7 +71,7 @@
 
             <div class="botonFormulario parent">
                 <input type="file" id="fileInput">
-                <input type = "submit" value = "Enviar" />
+                <input type = "submit" id="submitButton" value = "Enviar" />
             </div>
         </div>
     </form>

@@ -1,38 +1,10 @@
 from flask import Flask, jsonify, render_template, request
 import os, re
+from flaskr.static.network_tools import network_manager as manager
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-
-    # funciones
-    def obtener_dispositivos():
-        dispositivos = [
-            [
-                {"hostname": "router 1", "ip": "192.168.1.100"},
-                {"hostname": "router 2", "ip": "192.168.1.101"},
-                {"hostname": "router 2", "ip": "192.168.1.102"},
-                {"hostname": "router 2", "ip": "192.168.1.103"},
-                {"hostname": "router 2", "ip": "192.168.1.104"},
-                {"hostname": "router 3", "ip": "192.168.1.105"}
-            ],
-            [
-                {"hostname": "switch 4", "ip": "192.168.1.200"},
-                {"hostname": "switch 4", "ip": "192.168.1.201"},
-                {"hostname": "switch 4", "ip": "192.168.1.202"},
-                {"hostname": "switch 5", "ip": "192.168.1.203"},
-                {"hostname": "switch 6", "ip": "192.168.1.204"}
-            ]
-        ]
-        return dispositivos
-    
-    def obtener_sucursales():
-        sucursales = [
-            "Guadajalara",
-            "Monterrey",
-            "CDMX"
-        ]
-        return sucursales
 
     def limpiar_texto(texto):
         # Eliminar los caracteres '#' y '\r\n' del texto
@@ -48,14 +20,18 @@ def create_app(test_config=None):
     # rutas
     @app.route("/", methods=['GET', 'POST'])
     def index():
+        dispositivos = manager.get_devices()
+        sucursales = manager.get_branches()
+
+        for d in dispositivos["router"]:
+            print(d)
+
         if request.method == 'POST':
             # datos personalizados
-            dispositivos = obtener_dispositivos()
-            sucursales = obtener_sucursales()
             respuesta = request.form.to_dict(flat=False)
 
-            if(respuesta['consola'][0] != ''):
-                respuesta['consola'] = limpiar_texto(respuesta['consola'][0])
+            # if(respuesta['consola'][0] != ''):
+            #     respuesta['consola'] = limpiar_texto(respuesta['consola'][0])
 
             return render_template("index.html", 
                                    dispositivos=dispositivos,
@@ -63,8 +39,6 @@ def create_app(test_config=None):
                                    respuesta=respuesta)
         else:
             # datos iniciales
-            dispositivos = obtener_dispositivos()
-            sucursales = obtener_sucursales()
             respuesta = ''
 
             print("get")
