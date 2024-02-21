@@ -22,6 +22,7 @@
     
             <div class="dispositivos parent">
                 <div class="child">
+                    {% if dispositivos["router"] %}
                     <h1>Dispositivos</h1>
                     <h3>Router</h3>
                     <ul>
@@ -29,26 +30,52 @@
                         <li class="item">
                             <input type="checkbox" checked
                                 name="router"
-                                value="{{ [dispositivo["host"], dispositivo["ip"]] }}">
-                            <p>{{ dispositivo["host"] }}</p>
+                                value="{{ dispositivo['ip'] }}">
                             <p>{{ dispositivo["ip"] }}</p>
                         </li>
                         {% endfor %}
                     </ul>
-        
+                    {% endif %}
+                    {% if dispositivos["switch"] %}
                     <h3>Switch</h3>
                     <ul>
                         {% for dispositivo in dispositivos["switch"] %}
                         <li class="item">
                             <input type="checkbox" checked
                                 name="switch"
-                                value="{{ [dispositivo["host"], dispositivo["ip"]] }}">
-                            <p>{{ dispositivo["host"] }}</p>
+                                value="{{ dispositivo['ip'] }}">
                             <p>{{ dispositivo["ip"] }}</p>
                         </li>
                         {% endfor %}
                     </ul>
+                    {% endif %}
                 </div>
+            </div>
+            <div class="consola parent">
+                {% if dispositivos["router"] %}
+                <div class="child">
+                    <p>Comandos router</p>
+                    <br>
+                    <textarea readonly
+                        name="consola_router"
+                        id="consola"
+                        class="areaComandos"
+                        cols="30" rows="10">{{respuesta}}</textarea>
+                        <input type="file" id="fileInput">
+                </div>
+                {% endif %}
+                {% if dispositivos["switch"] %}
+                <div class="child">
+                    <p>Comandos switch</p>
+                    <br>
+                    <textarea readonly
+                        name="consola_switch"
+                        id="consola"
+                        class="areaComandos"
+                        cols="30" rows="10">{{respuesta}}</textarea>
+                    <input type="file" id="fileInput">
+                </div>
+                {% endif %}
             </div>
     
             <div class="acciones parent">
@@ -56,22 +83,8 @@
                     <h1>Acciones</h1>
                     <input type="button" value="Show Running config">
                     <input type="button" value="ping">
+                    <input type = "submit" id="submitButton" value = "Enviar" />
                 </div>
-            </div>
-    
-            <div class="consola parent">
-                <div class="child">
-                    <textarea readonly
-                        name="consola"
-                        id="consola"
-                        class="areaComandos"
-                        cols="30" rows="10">{{respuesta}}</textarea>
-                </div>
-            </div>
-
-            <div class="botonFormulario parent">
-                <input type="file" id="fileInput">
-                <input type = "submit" id="submitButton" value = "Enviar" />
             </div>
         </div>
     </form>
