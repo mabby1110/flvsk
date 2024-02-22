@@ -1,20 +1,30 @@
 device_dict = {
-    'router': [
-        {
+    'router': {
+        "R10": {
+            'info':{
             'device_type': 'cisco_ios',
-            "ip": "192.168.10.1"
-        },
-        { 
-            'device_type': 'cisco_ios',
-            "ip": "192.168.10.2"
+            "ip": "192.168.10.2",
+            'host': 'Admin',
+            'username': 'ti',
+            "password": "trenta",
+            'secret': "trenta"
+            },
+            'conn': None
         }
-    ],
-    'switch': [
-        {
+    },
+    'switch': {
+        "S8": {
+            'info':{
             'device_type': 'cisco_ios',
-            "ip": "192.168.10.6"
+            "ip": "192.168.10.12",
+            'host': 'Admin',
+            'username': 'ti',
+            "password": "trenta",
+            'secret': "trenta"
+            },
+            'conn': None
         }
-    ]
+    }
 }
 
 branch_list = [

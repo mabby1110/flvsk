@@ -9,8 +9,18 @@ def create_app(test_config=None):
     # rutas
     @app.route("/", methods=['GET', 'POST'])
     def index():
+        # obtener datos almacenados
         dispositivos = manager.get_devices()
         sucursales = manager.get_branches()
+
+
+        for host in dispositivos:
+            for data in dispositivos[host]:
+                dispositivos[host][data] = manager.make_conn(dispositivos[host][data])
+                print(f"{type(dispositivos[host][data])}\n{dispositivos[host]}\n{dispositivos[host][data]}\n\n")
+
+
+        
 
         if request.method == 'POST':
             # datos personalizados
@@ -23,8 +33,6 @@ def create_app(test_config=None):
         else:
             # datos iniciales
             respuesta = ''
-
-            print("get")
 
             return render_template("index.html",
                                    dispositivos=dispositivos,
