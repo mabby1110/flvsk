@@ -24,12 +24,13 @@
                     <h1>Dispositivos</h1>
                     <h3>Router</h3>
                     <ul>
-                        {% for dispositivo in dispositivos["router"] %}
-                        <li class="item">
+                        {% for host in dispositivos["router"].keys() %}
+                        <li class="item {{'bgGreen' if dispositivos['router'][host]['conn'] else 'bgRed'}}">
                             <input type="checkbox" checked
                                 name="router"
-                                value="{{ dispositivo['ip'] }}">
-                            <p>{{ dispositivo["ip"] }}</p>
+                                value="{{ dispositivos['ip'] }}">
+                            <p>{{ host }}</p>
+                            <p>{{ dispositivos["router"][host]['info']['ip'] }}</p>
                         </li>
                         {% endfor %}
                     </ul>
@@ -37,12 +38,13 @@
                     {% if dispositivos["switch"] %}
                     <h3>Switch</h3>
                     <ul>
-                        {% for dispositivo in dispositivos["switch"] %}
-                        <li class="item">
+                        {% for host in dispositivos["switch"].keys() %}
+                        <li class="item {{'bgGreen' if dispositivos['switch'][host]['conn'] else 'bgRed'}}">
                             <input type="checkbox" checked
-                                name="switch"
-                                value="{{ dispositivo['ip'] }}">
-                            <p>{{ dispositivo["ip"] }}</p>
+                            name="switch"
+                            value="{{ dispositivos['ip'] }}">
+                            <p>{{ host }}</p>
+                            <p>{{ dispositivos["switch"][host]['info']['ip'] }}</p>
                         </li>
                         {% endfor %}
                     </ul>

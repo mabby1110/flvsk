@@ -26,7 +26,7 @@ class network_manager:
         
         except Exception as e:
             # print("Error trying to connect:", str(e))
-            device['conn'] = False
+            device['conn'] = 'False'
         
         return device
 
@@ -39,11 +39,3 @@ class network_manager:
         
     def get_branches():
         return db.branch_list
-
-# conn.config_mode()
-# print(conn.find_prompt())
-# print(conn.send_config_from_file("comandos.txt"))
-    
-# for dispositivo in dispositivos:
-#     print(f"Trying to connect to {dispositivo['ip']}...")
-#     ping(dispositivo["ip"], dispositivo["name"])

@@ -70,7 +70,7 @@ p, li, input {
 
 .item {
     display: flex;
-    padding: 4px 0;
+    padding: 4px 4px;
     gap: 1rem;
 }
 
@@ -108,10 +108,10 @@ p, li, input {
     flex-grow: 6;
     min-width: 50%;
     max-width: 50.625rem;
-
+    
     display: flex;
     flex-direction: column;
-
+    
 }
 
 .botonFormulario {
@@ -119,3 +119,11 @@ p, li, input {
     min-width: 100%;
 }
 
+/* ############################# estilos dinamicos */
+.bgGreen {
+    background-color: rgba(0, 128, 0, 0.692);
+}
+
+.bgRed {
+    background-color: rgba(255, 0, 0, 0.692);
+}

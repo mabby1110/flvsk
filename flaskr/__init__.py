@@ -16,7 +16,7 @@ def create_app(test_config=None):
 
         for host in dispositivos:
             for data in dispositivos[host]:
-                dispositivos[host][data] = manager.make_conn(dispositivos[host][data])
+                # dispositivos[host][data] = manager.make_conn(dispositivos[host][data])
                 print(f"{type(dispositivos[host][data])}\n{dispositivos[host]}\n{dispositivos[host][data]}\n\n")
 
 
