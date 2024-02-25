@@ -36,7 +36,7 @@
                             <ul>
                                 {% for host in devices[branch][device] %}
                                     <li class="item {{'bgGreen' if devices[branch][device][host]['conn'] else 'bgRed'}}">
-                                        <p>{{ host }}</p>
+                                        <p>{{ devices[branch][device][host]['info']['host'] }}</p>
                                         <p>{{ devices[branch][device][host]['info']['ip'] }}</p>
                                     </li>
                                 {% endfor %}
@@ -57,8 +57,9 @@
                                 <div class="parent">
                                     <p>{{device}} {{host}}</p>
                                     <textarea readonly
-                                        name="{{host}}"
+                                        name="{{devices[branch][device][host]['info']['ip']}}"
                                         class="areaComandos"
+                                        id="consola"
                                         cols="30" rows="10">{{respuesta}}</textarea>
                                         <input type="file" id="fileInput">
                                 </div>

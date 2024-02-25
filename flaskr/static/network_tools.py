@@ -1,6 +1,6 @@
 from netmiko import ConnectHandler
 import flaskr.static.db as db
-import copy
+import copy, re
 
 username = 'ti'
 password = 'trenta'
@@ -11,7 +11,7 @@ class network_manager:
     def __init__(self):
         self.devices = db.device_dict
     
-    def make_conn(self, device):
+    def conectar(self, device):
         # try:
         #     conn =  ConnectHandler(**device['info'])
         #     conn.enable()
@@ -26,6 +26,22 @@ class network_manager:
         
         return device
     
+    def ejecutar(self, res):
+        print(res)
+        for ip, comandos in res.items():
+            for branch in self.devices:
+                for device in self.devices[branch]:
+                    if ip in self.devices[branch][device]:
+                        print(self.devices[branch][device][ip])
+                        for c in comandos:
+                            print(c)
+                            # conn = self.devices[branch][device][ip]['conn']
+                            # conn.enable()
+                            # conn.configure()
+                            # output = conn.send_command(c)
+                            # print(f"Output of '{cmd}':\n{output}")
+        return 0
+
     def filtrar(self, diccionario_recibido):
         temp_dict = copy.deepcopy(self.devices)
 
@@ -37,3 +53,14 @@ class network_manager:
             del temp_dict[clave]
 
         return temp_dict
+
+    def limpiar_texto(self, texto):
+        # Eliminar los caracteres '#' y '\r\n' del texto
+        texto_limpio = re.sub(r'#|\r\n', '@', texto)
+        texto_limpio = re.sub(r'\s@|@\s+|@', '$', texto_limpio)
+        texto_limpio = re.sub(r'\$+', '$', texto_limpio)
+
+        # Dividir el texto en oraciones
+        comandos = re.split(r'\$', texto_limpio)
+        comandos.remove('')
+        return comandos

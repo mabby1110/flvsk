@@ -1,11 +1,11 @@
 device_dict = {
     'guadalajara':{
         'router': {
-            "R10": {
+            "192.168.10.2": {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.10.2",
-                    'host': 'Admin',
+                    'host': 'R10',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -14,11 +14,11 @@ device_dict = {
             }
         },
         'switch': {
-            "S8": {
+            "192.168.10.12": {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.10.12",
-                    'host': 'Admin',
+                    'host': 'S8',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -29,11 +29,11 @@ device_dict = {
     },
     'monterrey': {
         'router': {
-            "R11": {
+            "192.168.10.3": {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.10.3",
-                    'host': 'Admin',
+                    'host': 'R11',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -42,11 +42,11 @@ device_dict = {
             }
         },
         'switch': {
-            "S9": {
+            "192.168.10.13": {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.10.13",
-                    'host': 'Admin',
+                    'host': 'S9',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -58,11 +58,11 @@ device_dict = {
     },
     'cdmx':{
         'router': {
-            "R12": {
+            "192.168.10.4": {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.10.4",
-                    'host': 'Admin',
+                    'host': 'R12',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -71,11 +71,11 @@ device_dict = {
             }
         },
         'switch': {
-            "S10": {
+            "192.168.10.14": {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.10.14",
-                    'host': 'Admin',
+                    'host': 'S10',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -86,14 +86,3 @@ device_dict = {
         
     }
 }
-
-    # def limpiar_texto(texto):
-    #     # Eliminar los caracteres '#' y '\r\n' del texto
-    #     texto_limpio = re.sub(r'#|\r\n', '@', texto)
-    #     texto_limpio = re.sub(r'\s@|@\s+|@', '$', texto_limpio)
-    #     texto_limpio = re.sub(r'\$+', '$', texto_limpio)
-
-    #     # Dividir el texto en oraciones
-    #     comandos = re.split(r'\$', texto_limpio)
-    #     comandos.remove('')
-    #     return comandos
