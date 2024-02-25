@@ -1,41 +1,39 @@
 from netmiko import ConnectHandler
 import flaskr.static.db as db
+import copy
 
 username = 'ti'
 password = 'trenta'
 secret = 'trenta'
 
 class network_manager:
-    conn = None
-    admin_dev = {
-            'device_type': 'cisco_ios',
-            "ip": "192.168.10.2",
-            'host': 'Admin',
-            'username': 'ti',
-            "password": "trenta",
-            'secret': "trenta"
-        }
+
+    def __init__(self):
+        self.devices = db.device_dict
     
-    def make_conn(device=admin_dev):
-        try:
-            conn =  ConnectHandler(**device['info'])
-            conn.enable()
-            host = conn.find_prompt()
+    def make_conn(self, device):
+        # try:
+        #     conn =  ConnectHandler(**device['info'])
+        #     conn.enable()
+        #     host = conn.find_prompt()
             
-            device['conn'] = conn
+        #     device['conn'] = conn
         
-        except Exception as e:
-            # print("Error trying to connect:", str(e))
-            device['conn'] = 'False'
+        # except Exception as e:
+        #     # print("Error trying to connect:", str(e))
+        #     device['conn'] = 'False'
+        device['conn'] = 'True'
         
         return device
+    
+    def filtrar(self, diccionario_recibido):
+        temp_dict = copy.deepcopy(self.devices)
 
-    def send_command(res):
+        # Crear una copia de las claves del diccionario para evitar errores durante la iteración
+        claves_a_eliminar = [clave for clave in temp_dict.keys() if clave not in diccionario_recibido['branch']]
 
-        return res
-        
-    def get_devices():
-        return db.device_dict
-        
-    def get_branches():
-        return db.branch_list
+        # Eliminar las claves que no están en la lista
+        for clave in claves_a_eliminar:
+            del temp_dict[clave]
+
+        return temp_dict

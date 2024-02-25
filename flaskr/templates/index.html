@@ -5,90 +5,72 @@
 {% endblock %}
 
 {% block body %}
-    <form method="post">
+    <form method="post" id="formulario">
         <div class="container">
             <div class="sucursales parent">
-                    {% for sucursal in sucursales %}
+                    {% for branch in devices %}
                     <div class="item">
                         <input type="checkbox" checked
-                            name="sucursal"
-                            value="{{ sucursal }}">
-                        <p>{{ sucursal }}</p>
+                            name="branch"
+                            value="{{ branch }}">
+                        <p>{{ branch }}</p>
                     </div>
                     {% endfor %}
             </div>
-    
-            <div class="dispositivos parent">
-                <div class="child">
-                    {% if dispositivos["router"] %}
-                    <h1>Dispositivos</h1>
-                    <h3>Router</h3>
-                    <ul>
-                        {% for host in dispositivos["router"].keys() %}
-                        <li class="item {{'bgGreen' if dispositivos['router'][host]['conn'] else 'bgRed'}}">
-                            <input type="checkbox" checked
-                                name="router"
-                                value="{{ dispositivos['ip'] }}">
-                            <p>{{ host }}</p>
-                            <p>{{ dispositivos["router"][host]['info']['ip'] }}</p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                    {% if dispositivos["switch"] %}
-                    <h3>Switch</h3>
-                    <ul>
-                        {% for host in dispositivos["switch"].keys() %}
-                        <li class="item {{'bgGreen' if dispositivos['switch'][host]['conn'] else 'bgRed'}}">
-                            <input type="checkbox" checked
-                            name="switch"
-                            value="{{ dispositivos['ip'] }}">
-                            <p>{{ host }}</p>
-                            <p>{{ dispositivos["switch"][host]['info']['ip'] }}</p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-            </div>
-    
-            <div class="acciones parent">
-                <div class="child">
+
+            <div class="resumen parent">
+
+                <div class="acciones child">
                     <h1>Acciones</h1>
-                    <input type="button" value="Show Running config">
-                    <input type="button" value="ping">
-                    <input type = "submit" id="submitButton" value = "Enviar" />
+                    <input type="submit" name="action" value="filtrar">
+                    <input type="submit" name="action" value="reiniciar">
+                    <input type="submit" name="action" value="ejecutar">
+                </div>
+                
+                <div class="dispositivos child">
+                    {% for branch in devices %}
+                    <div>
+                    <h3>{{branch}}</h3>
+                        {% for device in devices[branch] %}
+                            <p>{{device}}</p>
+                            <ul>
+                                {% for host in devices[branch][device] %}
+                                    <li class="item {{'bgGreen' if devices[branch][device][host]['conn'] else 'bgRed'}}">
+                                        <p>{{ host }}</p>
+                                        <p>{{ devices[branch][device][host]['info']['ip'] }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
+
             <div class="consola parent">
-                {% if dispositivos["router"] %}
-                <div class="child">
-                    <p>Comandos router</p>
-                    <br>
-                    <textarea readonly
-                        name="consola_router"
-                        id="consola"
-                        class="areaComandos"
-                        cols="30" rows="10">{{respuesta}}</textarea>
-                        <input type="file" id="fileInput">
-                </div>
-                {% endif %}
-                {% if dispositivos["switch"] %}
-                <div class="child">
-                    <p>Comandos switch</p>
-                    <br>
-                    <textarea readonly
-                        name="consola_switch"
-                        id="consola"
-                        class="areaComandos"
-                        cols="30" rows="10">{{respuesta}}</textarea>
-                    <input type="file" id="fileInput">
-                </div>
-                {% endif %}
+                {% for branch in devices %}
+                    <div class="child">
+                        <h1>{{branch}}</h1>
+                        {% for device in devices[branch] %}
+                            {% for host in devices[branch][device] %}
+                            {% if devices[branch][device][host]['conn'] %}
+                                <div class="parent">
+                                    <p>{{device}} {{host}}</p>
+                                    <textarea readonly
+                                        name="{{host}}"
+                                        class="areaComandos"
+                                        cols="30" rows="10">{{respuesta}}</textarea>
+                                        <input type="file" id="fileInput">
+                                </div>
+                            {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </form>
-{% endblock %}
+    {% endblock %}
 
 {% block footer %}
     <p>footer</p>

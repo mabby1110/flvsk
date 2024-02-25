@@ -12,4 +12,4 @@ document.getElementById('fileInput').addEventListener('change', function(e) {
     }
 
     reader.readAsText(file);
-});
+})
