@@ -2,20 +2,19 @@
 
 Este repositorio contiene scripts y herramientas para administración de redes.
 
-## Activación de entorno virtual con Python
+## Ejecutar aplicación
 
-Para activar el entorno virtual con Python, puedes utilizar el siguiente comando:
+1. Activar el entorno virtual con Python
 ```bash
 python -m venv venv
 ```
 
-instalar dependencias
+2. instalar dependencias
 ```bash
 pip install -r .\requirements.txt
 ```
 
-Ejecución de Flask
-Para ejecutar la aplicación Flask llamada flaskr en modo debug, utiliza el siguiente comando:
+3. Ejecutar la aplicación Flask en modo debug:
 ```bash
 flask --app flaskr run --debug
 ```
