@@ -3,13 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('myForm').reset();
 })
 
-document.getElementById('fileInput').addEventListener('change', function(e) {
+function loadText(obj, e, id_consola){
+    console.log(e)
     var file = e.target.files[0];
     var reader = new FileReader();
 
     reader.onload = function(e) {
-        document.getElementById('consola').value = e.target.result;
+        document.getElementById(id_consola).value = e.target.result;
     }
 
     reader.readAsText(file);
-})
+}

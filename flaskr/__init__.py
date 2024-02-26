@@ -14,37 +14,38 @@ def create_app(test_config=None):
         # obtener datos almacenados
         devices = manager.devices
 
-        # comprobar conexion
-        for branch in devices:
-            for device in devices[branch]:
-                for host in devices[branch][device]:
-                    manager.conectar(devices[branch][device][host])
-
         if request.method == 'POST':
-            
-            if request.form['action'] == 'filtrar': # filtrar
-                # datos personalizados
+        # filtrar    
+            if request.form['action'] == 'filtrar':
+                print("filtrar")
                 res = request.form.to_dict(flat=False)
                 datos_filtrados = manager.filtrar(res)
                 return render_template("index.html",
                                     devices = datos_filtrados,
                                     respuesta='')
-                                    
-            elif request.form['action'] == 'reiniciar': # borrar filtros
+        # borrar filtros                
+            elif request.form['action'] == 'reiniciar':
+                print("reiniciar")
                 return redirect(url_for('index'))
-
-            elif request.form['action'] == 'ejecutar': # ejecutar comando
+        # ejecutar comando
+            elif request.form['action'] == 'ejecutar':
+                print("ejecutar")
                 res = request.form.to_dict(flat=False)
 
                 del res['branch']
                 del res['action']
                 for k, v in res.items():
                     res[k] = manager.limpiar_texto(v[0])
+
                 manager.ejecutar(res)
                 return render_template("index.html",
                                     devices = devices,
-                                    respuesta=res)
+                                    respuesta='ok')
         else:
+            for branch in devices:
+                for device in devices[branch]:
+                    for host in devices[branch][device]:
+                        manager.conectar(devices[branch][device][host])
             return render_template("index.html",
                                    devices = devices,
                                    respuesta='')

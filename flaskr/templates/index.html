@@ -59,9 +59,9 @@
                                     <textarea readonly
                                         name="{{devices[branch][device][host]['info']['ip']}}"
                                         class="areaComandos"
-                                        id="consola"
+                                        id="{{devices[branch][device][host]['info']['ip']}}"
                                         cols="30" rows="10">{{respuesta}}</textarea>
-                                        <input type="file" id="fileInput">
+                                        <input type="file" id="fileInput" onchange="loadText(this, event, '{{devices[branch][device][host]['info']['ip']}}')">
                                 </div>
                             {% endif %}
                             {% endfor %}
