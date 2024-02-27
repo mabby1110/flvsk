@@ -41,6 +41,15 @@ def create_app(test_config=None):
                 return render_template("index.html",
                                     devices = devices,
                                     respuesta='ok')
+        # hacer ping
+            elif request.form['action'] == 'ping':
+                print("ping")
+
+                output = manager.ping()
+                print(type(output))
+                return render_template("index.html",
+                                    devices = devices,
+                                    respuesta=output)
         else:
             for branch in devices:
                 for device in devices[branch]:

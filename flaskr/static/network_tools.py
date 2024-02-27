@@ -12,18 +12,18 @@ class network_manager:
         self.devices = db.device_dict
     
     def conectar(self, device):
-        # try:
-        #     conn =  ConnectHandler(**device['info'])
-        #     conn.enable()
-        #     host = conn.find_prompt()
+        try:
+            conn =  ConnectHandler(**device['info'])
+            conn.enable()
+            host = conn.find_prompt()
             
-        #     device['conn'] = conn
-        #     print(f"conectado a {device['info']['host']}")
+            device['conn'] = conn
+            print(f"conectado a {device['info']['host']}")
         
-        # except Exception as e:
-        #     print(f"falló conexion con {device['info']['host']}")
-        #     device['conn'] = False
-        device['conn'] = 'True'
+        except Exception as e:
+            print(f"falló conexion con {device['info']['host']}")
+            device['conn'] = False
+        # device['conn'] = 'True'
         
         return device
     
@@ -36,12 +36,28 @@ class network_manager:
                         if ip in self.devices[branch][device]:
                             conn = self.devices[branch][device][ip]['conn']
                             conn.enable()
-                            conn.config_mode()
+                            # conn.config_mode()
                             for c in comandos:
+                                output = conn.send_command(c)
                                 print(c)
-                                conn.send_command(c)
         except Exception as e:
             print(f"Error: {e}")
+
+    def ping(self):
+        lista_dispositivos = ["192.168.4.1", "192.168.70.2", "192.168.10.1", "192.168.10.2", "192.168.10.3"]
+        try:
+            output = []
+            conn = self.devices['monterrey']['router']['192.168.70.1']['conn']
+            conn.enable()
+            # conn.config_mode()
+            for c in lista_dispositivos:
+                r = conn.send_command(f"ping {c}")
+                output.append(r)
+                print(f"\nip {c} output:\n{r}")
+            return output
+        except Exception as e:
+            print(f"Error: {e}")
+            return e
 
     def filtrar(self, diccionario_recibido):
         temp_dict = copy.deepcopy(self.devices)

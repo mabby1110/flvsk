@@ -25,6 +25,7 @@
                     <input type="submit" name="action" value="filtrar">
                     <input type="submit" name="action" value="reiniciar">
                     <input type="submit" name="action" value="ejecutar">
+                    <input type="submit" name="action" value="ping">
                 </div>
                 
                 <div class="dispositivos child">
@@ -39,6 +40,7 @@
                                         <p>{{ devices[branch][device][host]['info']['host'] }}</p>
                                         <p>{{ devices[branch][device][host]['info']['ip'] }}</p>
                                     </li>
+                                    <p>hace ping</p>
                                 {% endfor %}
                             </ul>
                         {% endfor %}
@@ -56,11 +58,11 @@
                             {% if devices[branch][device][host]['conn'] %}
                                 <div class="parent">
                                     <p>{{device}} {{host}}</p>
-                                    <textarea readonly
+                                    <textarea
                                         name="{{devices[branch][device][host]['info']['ip']}}"
                                         class="areaComandos"
                                         id="{{devices[branch][device][host]['info']['ip']}}"
-                                        cols="30" rows="10">{{respuesta}}</textarea>
+                                        cols="30" rows="10">{% for p in respuesta %}{{p+'\n'}}{% endfor %}</textarea>
                                         <input type="file" id="fileInput" onchange="loadText(this, event, '{{devices[branch][device][host]['info']['ip']}}')">
                                 </div>
                             {% endif %}
