@@ -24,11 +24,11 @@
             <div class="sucursal">
                 <h3>{{branch}}</h3>
                 {% for device in devices[branch] %}
-                    <div class="tipo_dispositivo">
+                    <div class="tipo_dispositivo hover">
                         <p>{{device}}</p>
                         <ul>
                             {% for host in devices[branch][device] %}
-                                <li class="dispositivo {{'bgGreen' if devices[branch][device][host]['conn'] else 'bgRed'}}">
+                                <li class="dispositivo hover {{'bgGreen' if devices[branch][device][host]['conn'] else 'bgRed'}}">
                                     <p>{{ devices[branch][device][host]['info']['host'] }}</p>
                                     <p>{{ devices[branch][device][host]['info']['ip'] }}</p>
                                 </li>
@@ -43,10 +43,13 @@
         <div class="consolas scrollB">
             <div id="consola_individual" class=" hidden">
                 {% for branch in devices %}
+                
                     <h3>{{branch}}</h3>
+                    
                     {% for device in devices[branch] %}
                         {% for host in devices[branch][device] %}
                             {% if devices[branch][device][host]['conn'] %}
+
                             <div class="consola">
                                 <p>{{device}} {{host}}</p>
                                 <textarea
@@ -61,6 +64,7 @@
                     {% endfor %}
                 {% endfor %}
             </div>
+
             <div id="consola_global" class="">
                 <h1>dispositivo</h1>
                 <textarea cols="30" rows="10"></textarea>
