@@ -1,8 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Clear form data on page load
-    document.getElementById('myForm').reset();
-})
-
 function loadText(obj, e, id_consola){
     console.log(e)
     var file = e.target.files[0];
@@ -26,4 +21,16 @@ function dropDown(obj) {
             div.style.display = 'none'; // Si está mostrado, lo oculta
         }
     });
+}
+
+let showDivA = true;
+function toggleView(event){
+    event.preventDefault();
+    const divA = document.getElementById('consola_global');
+    const divB = document.getElementById('consola_individual');
+    
+    showDivA = !showDivA;
+    console.log(showDivA)
+    divA.classList.toggle('hidden', !showDivA);
+    divB.classList.toggle('hidden', showDivA);
 }
