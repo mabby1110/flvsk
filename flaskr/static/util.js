@@ -14,3 +14,16 @@ function loadText(obj, e, id_consola){
 
     reader.readAsText(file);
 }
+
+function dropDown(obj) {
+    // Selecciona todos los elementos div dentro de obj
+    const divs = obj.querySelectorAll('div');
+    // Itera sobre cada elemento div para cambiar su visibilidad
+    divs.forEach(function(div) {
+        if (div.style.display === 'none') {
+            div.style.display = ''; // Si está oculto, lo muestra
+        } else {
+            div.style.display = 'none'; // Si está mostrado, lo oculta
+        }
+    });
+}

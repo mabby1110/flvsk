@@ -6,75 +6,68 @@
 
 {% block body %}
     <form method="post" id="formulario">
+
         <div class="container">
-            <div class="sucursales parent">
-                    {% for branch in devices %}
-                    <div class="item">
-                        <input type="checkbox" checked
-                            name="branch"
-                            value="{{ branch }}">
-                        <p>{{ branch }}</p>
-                    </div>
-                    {% endfor %}
+
+            <div class="acciones_dispositivos component">
+                <h1>Acciones</h1>
+                <input type="submit" name="action" value="filtrar">
+                <input type="submit" name="action" value="reiniciar">
+            </div>
+            
+            <div class="acciones_consolas component">
+                <h1>Consola</h1>
+                <input type="submit" name="action" value="ejecutar">
+                <input type="submit" name="action" value="ping">
             </div>
 
-            <div class="resumen parent">
-
-                <div class="acciones child">
-                    <h1>Acciones</h1>
-                    <input type="submit" name="action" value="filtrar">
-                    <input type="submit" name="action" value="reiniciar">
-                    <input type="submit" name="action" value="ejecutar">
-                    <input type="submit" name="action" value="ping">
-                </div>
-                
-                <div class="dispositivos child">
-                    {% for branch in devices %}
-                    <div>
+            <div class="dispositivos component">
+                {% for branch in devices %}
+                <div class="sucursal">
                     <h3>{{branch}}</h3>
-                        {% for device in devices[branch] %}
+                    {% for device in devices[branch] %}
+                        <div class="tipo_dispositivo">
                             <p>{{device}}</p>
                             <ul>
                                 {% for host in devices[branch][device] %}
-                                    <li class="item {{'bgGreen' if devices[branch][device][host]['conn'] else 'bgRed'}}">
+                                    <li class="dispositivo {{'bgGreen' if devices[branch][device][host]['conn'] else 'bgRed'}}">
                                         <p>{{ devices[branch][device][host]['info']['host'] }}</p>
                                         <p>{{ devices[branch][device][host]['info']['ip'] }}</p>
                                     </li>
-                                    <p>hace ping</p>
                                 {% endfor %}
                             </ul>
-                        {% endfor %}
-                    </div>
+                        </div>
                     {% endfor %}
                 </div>
+                {% endfor %}
             </div>
 
-            <div class="consola parent">
+            <div class="consolas component">
+
                 {% for branch in devices %}
-                    <div class="child">
-                        <h1>{{branch}}</h1>
-                        {% for device in devices[branch] %}
-                            {% for host in devices[branch][device] %}
+                    <h3>{{branch}}</h3>
+                    {% for device in devices[branch] %}
+                        {% for host in devices[branch][device] %}
                             {% if devices[branch][device][host]['conn'] %}
-                                <div class="parent">
-                                    <p>{{device}} {{host}}</p>
-                                    <textarea
-                                        name="{{devices[branch][device][host]['info']['ip']}}"
-                                        class="areaComandos"
-                                        id="{{devices[branch][device][host]['info']['ip']}}"
-                                        cols="30" rows="10">{% for p in respuesta %}{{p+'\n'}}{% endfor %}</textarea>
-                                        <input type="file" id="fileInput" onchange="loadText(this, event, '{{devices[branch][device][host]['info']['ip']}}')">
-                                </div>
+                            <div class="consola">
+                                <p>{{device}} {{host}}</p>
+                                <textarea
+                                    name="{{devices[branch][device][host]['info']['ip']}}"
+                                    id="{{devices[branch][device][host]['info']['ip']}}"
+                                    cols="30" rows="10">{% for p in respuesta %}{{p+'\n'}}{% endfor %}
+                                </textarea>
+                                <input type="file" id="fileInput" onchange="loadText(this, event, '{{devices[branch][device][host]['info']['ip']}}')">
+                            </div>
                             {% endif %}
-                            {% endfor %}
                         {% endfor %}
-                    </div>
+                    {% endfor %}
                 {% endfor %}
             </div>
         </div>
     </form>
-    {% endblock %}
+{% endblock %}
 
 {% block footer %}
-    <p>footer</p>
+    <p>Universidad autonoma de Guadalajara</p>
+    <p>© 2024 Todos los derechos reservados para mabby1110 🐝</p>
 {% endblock %}
