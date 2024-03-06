@@ -12,18 +12,18 @@ class network_manager:
         self.devices = db.device_dict
     
     def conectar(self, device):
-        # try:
-        #     conn =  ConnectHandler(**device['info'])
-        #     conn.enable()
-        #     host = conn.find_prompt()
+        try:
+            conn =  ConnectHandler(**device['info'])
+            conn.enable()
+            host = conn.find_prompt()
             
-        #     device['conn'] = conn
-        #     print(f"conectado a {device['info']['host']}")
+            device['conn'] = conn
+            print(f"conectado a {device['info']['host']}")
         
-        # except Exception as e:
-        #     print(f"falló conexion con {device['info']['host']}")
-        #     device['conn'] = False
-        device['conn'] = 'True'
+        except Exception as e:
+            print(f"falló conexion con {device['info']['host']}")
+            device['conn'] = False
+        # device['conn'] = 'True'
         
         return device
     
