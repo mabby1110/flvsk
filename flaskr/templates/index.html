@@ -5,52 +5,46 @@
 {% endblock %}
 
 {% block body %}
-<form method="post" id="formulario">
-    <div class="container">
+<div class="acciones_dispositivos">
+    <h1>Acciones</h1>
+    <input id="id_ping" type="button" value="ping">
+    <input type="submit" name="action" value="reiniciar">
+</div>
+
+<div class="acciones_consolas">
+    <h1>Consola</h1>
+    <button id="toggleButton" onclick="toggleView(event)">Toggle</button>
+</div>
+
+<div id="lista_dispositivos" class="dispositivos scrollB"></div>
+
+<div id="lista_consolas" class="consolas scrollB">
+    <div id="consola_individual" class="hidden">
+        {% for branch in devices %}
         
-        <div class="acciones_dispositivos">
-            <h1>Acciones</h1>
-            <input type="submit" name="action" value="filtrar">
-            <input type="submit" name="action" value="reiniciar">
-        </div>
-        
-        <div class="acciones_consolas">
-            <h1>Consola</h1>
-            <button id="toggleButton" onclick="toggleView(event)">Toggle</button>
-        </div>
+            <h3>{{branch}}</h3>
+            
+            {% for device in devices[branch] %}
+                {% for host in devices[branch][device] %}
+                    {% if devices[branch][device][host]['conn'] %}
 
-        <div class="dispositivos scrollB"></div>
-
-        <div class="consolas scrollB">
-            <div id="consola_individual" class=" hidden">
-                {% for branch in devices %}
-                
-                    <h3>{{branch}}</h3>
-                    
-                    {% for device in devices[branch] %}
-                        {% for host in devices[branch][device] %}
-                            {% if devices[branch][device][host]['conn'] %}
-
-                            <div class="consola">
-                                <p>{{device}} {{host}}</p>
-                                <textarea
-                                    name="{{devices[branch][device][host]['info']['ip']}}"
-                                    id="{{devices[branch][device][host]['info']['ip']}}"
-                                    cols="30" rows="10">{% for p in respuesta %}{{p+'\n'}}{% endfor %}
-                                </textarea>
-                                <input type="file" id="fileInput" onchange="loadText(this, event, '{{devices[branch][device][host]['info']['ip']}}')">
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
+                    <div class="consola">
+                        <p>{{device}} {{host}}</p>
+                        <textarea
+                            name="{{devices[branch][device][host]['info']['ip']}}"
+                            id="{{devices[branch][device][host]['info']['ip']}}"
+                            cols="30" rows="10">{% for p in respuesta %}{{p+'\n'}}{% endfor %}
+                        </textarea>
+                        <input type="file" id="fileInput" onchange="loadText(this, event, '{{devices[branch][device][host]['info']['ip']}}')">
+                    </div>
+                    {% endif %}
                 {% endfor %}
-            </div>
-
-            <div id="consola_global" class=""></div>
-        </div>
-
+            {% endfor %}
+        {% endfor %}
     </div>
-</form>
+
+    <div id="consola_global" class=""></div>
+</div>
 {% endblock %}
 
 {% block footer %}
