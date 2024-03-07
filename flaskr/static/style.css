@@ -141,7 +141,7 @@ estilos dinamicos */
 .hover:hover {
     background-color: #7929f828; /* Cambia el color de fondo al hacer hover */
     cursor: pointer; /* Cambia el cursor para indicar que es interactivo */
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 2%;
 }
 

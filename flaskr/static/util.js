@@ -1,5 +1,5 @@
 async function fetchDevices() {
-    const response = await fetch("/api/network");
+    const response = await fetch("/api/get_devices");
     const devices = await response.json();
     console.log(devices);
 
@@ -7,6 +7,7 @@ async function fetchDevices() {
 
     for (const branch in devices) {
         const sucursalDiv = document.createElement('div');
+        sucursalDiv.setAttribute("id", 'id_'+branch)
         sucursalDiv.classList.add('sucursal');
 
         const branchHeader = document.createElement('h3');
@@ -16,6 +17,7 @@ async function fetchDevices() {
         for (const deviceType in devices[branch]) {
             const tipoDispositivoDiv = document.createElement('div');
             tipoDispositivoDiv.classList.add('tipo_dispositivo', 'hover');
+            tipoDispositivoDiv.setAttribute("id", 'id_'+branch+'_'+deviceType)
 
             const deviceTypeHeader = document.createElement('p');
             deviceTypeHeader.textContent = deviceType;
@@ -27,6 +29,7 @@ async function fetchDevices() {
             for (const host in devices[branch][deviceType]) {
                 const hostItem = document.createElement('li');
                 hostItem.classList.add('dispositivo', 'hover');
+                hostItem.setAttribute("id", 'id_'+branch+'_'+deviceType+'_'+host)
 
                 if (devices[branch][deviceType][host]['conn']) {
                     hostItem.classList.add('bgGreen');
@@ -53,31 +56,6 @@ async function fetchDevices() {
 }
 fetchDevices()
 
-function loadText(obj, e, id_consola){
-    console.log(e)
-    var file = e.target.files[0];
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-        document.getElementById(id_consola).value = e.target.result;
-    }
-
-    reader.readAsText(file);
-}
-
-function dropDown(obj) {
-    // Selecciona todos los elementos div dentro de obj
-    const divs = obj.querySelectorAll('div');
-    // Itera sobre cada elemento div para cambiar su visibilidad
-    divs.forEach(function(div) {
-        if (div.style.display === 'none') {
-            div.style.display = ''; // Si está oculto, lo muestra
-        } else {
-            div.style.display = 'none'; // Si está mostrado, lo oculta
-        }
-    });
-}
-
 let showDivA = true;
 function toggleView(event){
     event.preventDefault();
@@ -88,4 +66,16 @@ function toggleView(event){
     console.log(showDivA)
     divA.classList.toggle('hidden', !showDivA);
     divB.classList.toggle('hidden', showDivA);
+}
+
+function loadText(obj, e, id_consola){
+    console.log(e)
+    var file = e.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+        document.getElementById(id_consola).value = e.target.result;
+    }
+
+    reader.readAsText(file);
 }
