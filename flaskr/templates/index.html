@@ -1,49 +1,26 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-    <h1>Network Admin</h1>
+    <h4>Network Admin</h4>
 {% endblock %}
 
 {% block body %}
-<div class="acciones_dispositivos">
-    <h1>Acciones</h1>
+<div class="componente acciones_dispositivos">
+    <h5>Acciones</h5>
     <input id="id_ping" type="button" value="ping">
     <input type="submit" name="action" value="reiniciar">
 </div>
 
-<div class="acciones_consolas">
-    <h1>Consola</h1>
+<div class="componente acciones_consolas">
+    <h5 id="titulo_consola">Consola individual</h5>
     <button id="toggleButton" onclick="toggleView(event)">Toggle</button>
 </div>
 
-<div id="lista_dispositivos" class="dispositivos scrollB"></div>
+<div id="lista_dispositivos" class="componente dispositivos scrollB"></div>
 
-<div id="lista_consolas" class="consolas scrollB">
-    <div id="consola_individual" class="hidden">
-        {% for branch in devices %}
-        
-            <h3>{{branch}}</h3>
-            
-            {% for device in devices[branch] %}
-                {% for host in devices[branch][device] %}
-                    {% if devices[branch][device][host]['conn'] %}
-
-                    <div class="consola">
-                        <p>{{device}} {{host}}</p>
-                        <textarea
-                            name="{{devices[branch][device][host]['info']['ip']}}"
-                            id="{{devices[branch][device][host]['info']['ip']}}"
-                            cols="30" rows="10">{% for p in respuesta %}{{p+'\n'}}{% endfor %}
-                        </textarea>
-                        <input type="file" id="fileInput" onchange="loadText(this, event, '{{devices[branch][device][host]['info']['ip']}}')">
-                    </div>
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-        {% endfor %}
-    </div>
-
-    <div id="consola_global" class=""></div>
+<div id="lista_consolas" class="componente consolas scrollB">
+    <div id="consola_individual" class="scrollB"></div>
+    <div id="consola_global" class="hidden"></div>
 </div>
 {% endblock %}
 
