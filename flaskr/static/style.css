@@ -123,7 +123,9 @@ estilos dinamicos */
 .bgRed {
     background-color: rgba(255, 0, 0, 0.692);
 }
-.hover:hover, .selected{
+.hover:hover:not(:has(*:hover)):not(:focus-visible):not(.selected), 
+.hover *:hover:not(:has(*:hover)):not(:focus-visible):not(.selected),
+.selected{
     border-style: solid;
     border-color: aliceblue;
     cursor: pointer; /* Cambia el cursor para indicar que es interactivo */
