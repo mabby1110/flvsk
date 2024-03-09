@@ -1,7 +1,13 @@
 let showDivA = true;
-
 let carrito = []
 let lista_ejecucion = []
+// Crear un nuevo evento de "clic derecho" (contextmenu)
+const eventoClickDerecho = new MouseEvent('contextmenu', {
+    bubbles: true,
+    cancelable: true,
+    view: window,
+    button: 2 // Código para el botón derecho del mouse
+});
 
 function toggleView(event){
     event.preventDefault();
@@ -79,7 +85,7 @@ function removeMultipleHost(event) {
     for (const child of tipoDispositivo.children) {
         if (child.className.split(' ').includes('dispositivo')){
             if (child.className.split(' ').includes('selected')){
-                child.click();
+                child.dispatchEvent(eventoClickDerecho);
             }
         }
     }
