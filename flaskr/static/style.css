@@ -126,8 +126,8 @@ estilos dinamicos */
 .hover:hover:not(:has(*:hover)):not(:focus-visible):not(.selected), 
 .hover *:hover:not(:has(*:hover)):not(:focus-visible):not(.selected),
 .selected{
-    border-style: solid;
-    border-color: aliceblue;
+    background-color: aliceblue;
+    color: black;
     cursor: pointer; /* Cambia el cursor para indicar que es interactivo */
     border-radius: 2%;
 }

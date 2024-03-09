@@ -39,24 +39,29 @@ function addHost(event) {
     branchHeader.textContent = host;
     contenedor.appendChild(branchHeader);
 
-    // agregar a lista para ejecutar
+    if (!event.target.classList.contains('selected')) {
+        lista_ejecucion.push(host)
+        event.target.classList.add('selected');
+        consolas.appendChild(contenedor)
+        
+        console.log('add host', host[2], lista_ejecucion)
+    }
+}
+function removeHost(event) {
+    host = event.target.id.split('_')
+    consolas = document.getElementById('consola_individual')
+    id = 'consola_'+host[0]+host[1]+host[3]
+
     if (event.target.classList.contains('selected')) {
         lista_ejecucion.pop(host)
         event.target.classList.remove('selected');
         consolas.removeChild(document.getElementById(id))
         
-        console.log('lista unselected', lista_ejecucion);
-        
-    // eliminar de lista para ejecutar
-    } else {
-        lista_ejecucion.push(host)
-        event.target.classList.add('selected');
-        consolas.appendChild(contenedor)
-
-        console.log('lista selected', lista_ejecucion);
+        console.log('remove host', host[2], lista_ejecucion);
     }
 }
 function addMultipleHost(event) {
+    event.preventDefault();
     tipoDispositivo = event.target
 
     for (const child of tipoDispositivo.children) {
@@ -81,7 +86,7 @@ function removeMultipleHost(event) {
 }
 function createList(devices, dispositivosContainer){
     for (const branch in devices) {
-        const branchHeader = document.createElement('h5');
+        const branchHeader = document.createElement('h3');
         branchHeader.textContent = branch;
         dispositivosContainer.appendChild(branchHeader);
         
@@ -96,7 +101,7 @@ function createList(devices, dispositivosContainer){
             tipoDispositivoDiv.addEventListener('click', addMultipleHost);
             tipoDispositivoDiv.addEventListener('contextmenu', removeMultipleHost)
 
-            const deviceTypeHeader = document.createElement('p');
+            const deviceTypeHeader = document.createElement('h4');
             deviceTypeHeader.textContent = deviceType;
 
             tipoDispositivoDiv.appendChild(deviceTypeHeader);
@@ -106,6 +111,7 @@ function createList(devices, dispositivosContainer){
                 hostItem.classList.add('dispositivo', 'hover');
                 hostItem.setAttribute("id", branch+'_'+deviceType+'_'+host)
                 hostItem.addEventListener('click', addHost);
+                hostItem.addEventListener('contextmenu', removeHost)
                 
                 if (devices[branch][deviceType][host]['conn']) {
                     hostItem.classList.add('bgGreen');

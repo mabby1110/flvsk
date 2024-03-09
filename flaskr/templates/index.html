@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-    <h4>Network Admin</h4>
+    <h1>Network Admin</h1>
 {% endblock %}
 
 {% block body %}
 <div class="componente acciones_dispositivos">
-    <h5>Acciones</h5>
+    <h2>Acciones</h2>
     <input id="id_ping" type="button" value="ping">
     <input type="submit" name="action" value="reiniciar">
 </div>
 
 <div class="componente acciones_consolas">
-    <h5 id="titulo_consola">Consola individual</h5>
+    <h2 id="titulo_consola">Consola individual</h2>
     <button id="toggleButton" onclick="toggleView(event)">Toggle</button>
 </div>
 
