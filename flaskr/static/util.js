@@ -61,7 +61,21 @@ function addMultipleHost(event) {
 
     for (const child of tipoDispositivo.children) {
         if (child.className.split(' ').includes('dispositivo')){
-            child.click();
+            if (!child.className.split(' ').includes('selected')){
+                child.click();
+            }
+        }
+    }
+}
+function removeMultipleHost(event) {
+    event.preventDefault();
+    tipoDispositivo = event.target
+
+    for (const child of tipoDispositivo.children) {
+        if (child.className.split(' ').includes('dispositivo')){
+            if (child.className.split(' ').includes('selected')){
+                child.click();
+            }
         }
     }
 }
@@ -80,6 +94,7 @@ function createList(devices, dispositivosContainer){
             tipoDispositivoDiv.setAttribute("id", branch+'_'+deviceType)
             tipoDispositivoDiv.classList.add('lista_dispositivos', 'hover');
             tipoDispositivoDiv.addEventListener('click', addMultipleHost);
+            tipoDispositivoDiv.addEventListener('contextmenu', removeMultipleHost)
 
             const deviceTypeHeader = document.createElement('p');
             deviceTypeHeader.textContent = deviceType;
