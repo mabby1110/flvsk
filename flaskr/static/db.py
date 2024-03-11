@@ -40,7 +40,7 @@ device_dict = {
                 },
                 'conn': None
             },
-            "192.168.4.1": {
+            "192.168.3.1": {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.3.1",

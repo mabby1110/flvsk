@@ -223,12 +223,11 @@ function createList(devices){
     }
 }
 function createConsole(host){
-    
     const consolaDiv = document.createElement('div');
     consolaDiv.addEventListener('click', showConsole);
     consolaDiv.addEventListener('contextmenu', removeHost);
     consolaDiv.setAttribute('id', 'div_'+host)
-    consolaDiv.classList.add('consola');
+    consolaDiv.classList.add('consola', 'hover');
     
     const consolaTA = document.createElement('textarea')
     consolaTA.setAttribute('id', 'consola_'+host)
