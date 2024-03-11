@@ -102,6 +102,28 @@ device_dict = {
                     'secret': "trenta"
                 },
                 'conn': None
+            },
+            "192.168.10.5": {
+                'info':{
+                    'device_type': 'cisco_ios',
+                    "ip": "192.168.10.5",
+                    'host': 'S2',
+                    'username': 'ti',
+                    "password": "trenta",
+                    'secret': "trenta"
+                },
+                'conn': None
+            },
+            "192.168.10.4": {
+                'info':{
+                    'device_type': 'cisco_ios',
+                    "ip": "192.168.10.4",
+                    'host': 'S3',
+                    'username': 'ti',
+                    "password": "trenta",
+                    'secret': "trenta"
+                },
+                'conn': None
             }
         }
     }

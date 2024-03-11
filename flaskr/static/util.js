@@ -1,7 +1,13 @@
+// variables de estado
 let showDivA = true;
 let carrito = []
-let lista_ejecucion = []
-// Crear un nuevo evento de "clic derecho" (contextmenu)
+let dispositivos_seleccionados = []
+
+// variables estaticas
+const consola_individual = document.getElementById('consola_individual')
+const lista_dispositivos = document.getElementById('lista_dispositivos')
+
+// eventos
 const eventoClickDerecho = new MouseEvent('contextmenu', {
     bubbles: true,
     cancelable: true,
@@ -9,6 +15,7 @@ const eventoClickDerecho = new MouseEvent('contextmenu', {
     button: 2 // Código para el botón derecho del mouse
 });
 
+// funciones dinamicas
 function toggleView(event){
     event.preventDefault();
     const divA = document.getElementById('consola_global');
@@ -20,6 +27,21 @@ function toggleView(event){
     divB.classList.toggle('hidden', !showDivA);
     divA.classList.toggle('hidden', showDivA);
 }
+function showConsole(event){
+    
+    for (const child of event.target.children) {
+        if (child.id === 'code_area') {
+            console.log(child, child.id)
+            if(child.className.split(' ').includes('hidden')){
+                child.classList.toggle('hidden', false)
+            } else {
+                child.classList.toggle('hidden', true)
+            }
+        }
+    }
+    // divB.classList.toggle('hidden', !showDivA);
+}
+
 function loadText(obj, e, id_consola){
     console.log(e)
     var file = e.target.files[0];
@@ -32,9 +54,8 @@ function loadText(obj, e, id_consola){
     reader.readAsText(file);
 }
 function addHost(event) {
-    host = event.target.id.split('_')
-    consolas = document.getElementById('consola_individual')
-    id = 'consola_'+host[0]+host[1]+host[3]
+    host = event.target.id
+    id = 'consola_'+host
 
     // se crea elemento consola
     const contenedor = document.createElement('div');
@@ -46,24 +67,24 @@ function addHost(event) {
     contenedor.appendChild(branchHeader);
 
     if (!event.target.classList.contains('selected')) {
-        lista_ejecucion.push(host)
+        dispositivos_seleccionados.push(host)
         event.target.classList.add('selected');
-        consolas.appendChild(contenedor)
+        // consola_individual.appendChild(contenedor)
+        createConsole(host)
         
-        console.log('add host', host[2], lista_ejecucion)
+        console.log('add', host, dispositivos_seleccionados)
     }
 }
 function removeHost(event) {
-    host = event.target.id.split('_')
-    consolas = document.getElementById('consola_individual')
-    id = 'consola_'+host[0]+host[1]+host[3]
+    host = event.target.id
+    id = 'consola_'+host
 
     if (event.target.classList.contains('selected')) {
-        lista_ejecucion.pop(host)
+        dispositivos_seleccionados.pop(host)
         event.target.classList.remove('selected');
-        consolas.removeChild(document.getElementById(id))
+        consola_individual.removeChild(document.getElementById(id))
         
-        console.log('remove host', host[2], lista_ejecucion);
+        console.log('remove', host, dispositivos_seleccionados);
     }
 }
 function addMultipleHost(event) {
@@ -90,11 +111,13 @@ function removeMultipleHost(event) {
         }
     }
 }
-function createList(devices, dispositivosContainer){
+
+// creacion de componentes
+function createList(devices){
     for (const branch in devices) {
         const branchHeader = document.createElement('h3');
         branchHeader.textContent = branch;
-        dispositivosContainer.appendChild(branchHeader);
+        lista_dispositivos.appendChild(branchHeader);
         
         const sucursalDiv = document.createElement('div');
         sucursalDiv.setAttribute("id", branch)
@@ -107,7 +130,7 @@ function createList(devices, dispositivosContainer){
             tipoDispositivoDiv.addEventListener('click', addMultipleHost);
             tipoDispositivoDiv.addEventListener('contextmenu', removeMultipleHost)
 
-            const deviceTypeHeader = document.createElement('h4');
+            const deviceTypeHeader = document.createElement('h5');
             deviceTypeHeader.textContent = deviceType;
 
             tipoDispositivoDiv.appendChild(deviceTypeHeader);
@@ -138,14 +161,33 @@ function createList(devices, dispositivosContainer){
 
             sucursalDiv.appendChild(tipoDispositivoDiv);
         }
-        dispositivosContainer.appendChild(sucursalDiv);
+        lista_dispositivos.appendChild(sucursalDiv);
     }
 }
-async function fetchDevices() {
-    const dispositivosContainer = document.querySelector('.dispositivos');
-    const response = await fetch("/api/get_devices");
-    const devices = await response.json();
+function createConsole(host){
+    
+    const consolaDiv = document.createElement('div');
+    consolaDiv.setAttribute("id", 'consola_'+host)
+    consolaDiv.addEventListener('click', showConsole);
+    consolaDiv.classList.add('consola');
+    
+    const consolaTA = document.createElement('textarea')
+    consolaTA.setAttribute('id', 'code_area')
+    consolaTA.classList.add('hidden')
+    
+    const consoleHeader = document.createElement('h3');
+    consoleHeader.textContent = host;
+    
+    consolaDiv.appendChild(consoleHeader);
+    consolaDiv.appendChild(consolaTA)
+    consola_individual.appendChild(consolaDiv)
+}
 
-    createList(devices, dispositivosContainer)
+// al iniciar
+async function fetchDevices() {
+    const response = await fetch("/api/get_devices");
+    const dispositivos = await response.json();
+
+    createList(dispositivos)
 }
 fetchDevices()
