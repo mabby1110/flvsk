@@ -1,12 +1,3 @@
-// variables de estado
-let showDivA = true;
-let carrito = []
-let dispositivos_seleccionados = []
-
-// variables estaticas
-const consola_individual = document.getElementById('consola_individual')
-const lista_dispositivos = document.getElementById('lista_dispositivos')
-
 // eventos
 const eventoClickDerecho = new MouseEvent('contextmenu', {
     bubbles: true,
@@ -14,6 +5,58 @@ const eventoClickDerecho = new MouseEvent('contextmenu', {
     view: window,
     button: 2 // Código para el botón derecho del mouse
 });
+// variables estaticas
+const root = document.documentElement;
+const consola_individual = document.getElementById('consola_individual')
+const lista_dispositivos = document.getElementById('lista_dispositivos')
+
+// variables de estado
+let showDivA = true;
+let carrito = []
+let dispositivos_seleccionados = []
+let currentThemeIndex = 0;
+// temas de la app
+const darkTheme = {
+    'main-bg': '#1e1e1e', // Color de fondo principal de VS Code
+    'component-bg': '#252526', // Color de fondo de componentes en VS Code
+    'font': '#D4D4D4', // Color de fuente en VS Code
+    'button': '#0E639C', // Color de botones en VS Code
+    'bgGreen': 'rgba(0, 128, 0, 0.692)',
+    'bgRed': 'rgba(255, 0, 0, 0.692)',
+    'debug': 'Snow',
+    'info': 'LawnGreen',
+    'warn': 'GoldenRod',
+    'error': 'LightCoral',
+    'selected': '#3A96DD' // Color de selección en VS Code
+  };
+const lightTheme = {
+'main-bg': '#f2f2f2',
+'component-bg': '#ffffff',
+'font': '#333333',
+'button': '#6A5ACD', // Color morado para botones
+'bgGreen': 'rgba(0, 128, 0, 0.692)',
+'bgRed': 'rgba(255, 0, 0, 0.692)',
+'debug': 'DarkSlateBlue',
+'info': 'DarkGreen',
+'warn': 'DarkGoldenRod',
+'error': 'DarkRed',
+'selected': '#4169E1' // Color azul para el borde seleccionado
+};
+const obsidianTheme = {
+    'main-bg': 'rgb(10, 5, 40)', // Color principal
+    'component-bg': 'rgba(20, 10, 80, 0.8)', // Componentes más oscuros
+    'font': '#C8C8C8', // Fuente gris claro
+    'button': '#8B7DD1', // Botones en un tono morado
+    'bgGreen': 'rgba(0, 128, 0, 0.692)',
+    'bgRed': 'rgba(255, 0, 0, 0.692)',
+    'debug': '#A9A9A9', // Gris claro para depuración
+    'info': '#9370DB', // Morado claro para información
+    'warn': '#FFD700', // Amarillo para advertencias
+    'error': '#FF6347', // Rojo oscuro para errores
+    'selected': '#9370DB' // Morado claro para el borde seleccionado
+};
+// Array con los temas disponibles
+const themes = [darkTheme, obsidianTheme, lightTheme];
 
 // funciones dinamicas
 function toggleView(event){
@@ -39,6 +82,17 @@ function showConsole(event){
     }
     // divB.classList.toggle('hidden', !showDivA);
 }
+// Función para cambiar el tema
+const switch_theme = document.getElementsByClassName('switch_theme')
+function switchTheme() {
+    console.log(themes[currentThemeIndex])
+    for (const property in themes[currentThemeIndex]) {
+        root.style.setProperty(`--${property}`, themes[currentThemeIndex][property]);
+    }
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+}
+switch_theme[0].addEventListener('click', switchTheme)
+switch_theme[1].addEventListener('click', switchTheme)
 
 function loadText(obj, e, id_consola){
     console.log(e)

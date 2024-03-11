@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-    <h1>Network Admin</h1>
+    <h1 class="switch_theme">🍯 Honey Host</h1>
 {% endblock %}
 
 {% block body %}
 <div class="componente acciones_dispositivos">
     <h2>Acciones</h2>
-    <input id="ping" type="button" value="ping">
-    <input type="submit" name="action" value="reiniciar">
+    <button id="ping">ping</button>
 </div>
 
 <div class="componente acciones_consolas">
@@ -26,5 +25,8 @@
 
 {% block footer %}
     <p>Universidad autonoma de Guadalajara</p>
-    <p>© 2024 Todos los derechos reservados para mabby1110 🐝</p>
+    <div style="display: flex;align-items: center;">
+        <h1 class="switch_theme">🐝</h1>
+        <p>© 2024 Todos los derechos reservados para mabby1110 </p>
+    </div>
 {% endblock %}
