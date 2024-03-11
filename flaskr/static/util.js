@@ -74,6 +74,7 @@ function addHost(event) {
     }
 }
 function removeHost(event) {
+    event.preventDefault();
     host = event.target
 
     if (host.classList.contains('selected')) {
@@ -91,7 +92,6 @@ function removeHost(event) {
     console.log('remove', dispositivos_seleccionados, host);
 }
 function addMultipleHost(event) {
-    event.preventDefault();
     tipoDispositivo = event.target
 
     for (const child of tipoDispositivo.children) {
