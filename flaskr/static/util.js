@@ -28,11 +28,9 @@ function toggleView(event){
     divA.classList.toggle('hidden', showDivA);
 }
 function showConsole(event){
-    
     for (const child of event.target.children) {
-        if (child.id === 'code_area') {
-            console.log(child, child.id)
-            if(child.className.split(' ').includes('hidden')){
+        if (child.classList.contains('code_area')) {
+            if(child.classList.contains('hidden')){
                 child.classList.toggle('hidden', false)
             } else {
                 child.classList.toggle('hidden', true)
@@ -76,24 +74,29 @@ function addHost(event) {
     }
 }
 function removeHost(event) {
-    host = event.target.id
-    id = 'consola_'+host
+    host = event.target
 
-    if (event.target.classList.contains('selected')) {
+    if (host.classList.contains('selected')) {
         dispositivos_seleccionados.pop(host)
-        event.target.classList.remove('selected');
-        consola_individual.removeChild(document.getElementById(id))
+        host.classList.remove('selected');
+        consola_individual.removeChild(document.getElementById('div_'+host.id))
         
-        console.log('remove', host, dispositivos_seleccionados);
+    } else if (host.classList.contains('consola')){
+        id = host.id.replace('div_', '')
+        li = document.getElementById(id)
+        li.classList.remove('selected');
+        dispositivos_seleccionados.pop(id)
+        consola_individual.removeChild(document.getElementById('div_'+id))
     }
+    console.log('remove', dispositivos_seleccionados, host);
 }
 function addMultipleHost(event) {
     event.preventDefault();
     tipoDispositivo = event.target
 
     for (const child of tipoDispositivo.children) {
-        if (child.className.split(' ').includes('dispositivo')){
-            if (!child.className.split(' ').includes('selected')){
+        if (child.classList.contains('dispositivo')){
+            if (!child.classList.contains('selected')){
                 child.click();
             }
         }
@@ -104,8 +107,8 @@ function removeMultipleHost(event) {
     tipoDispositivo = event.target
 
     for (const child of tipoDispositivo.children) {
-        if (child.className.split(' ').includes('dispositivo')){
-            if (child.className.split(' ').includes('selected')){
+        if (child.classList.contains('dispositivo')){
+            if (child.classList.contains('selected')){
                 child.dispatchEvent(eventoClickDerecho);
             }
         }
@@ -129,8 +132,9 @@ function createList(devices){
             tipoDispositivoDiv.classList.add('lista_dispositivos', 'hover');
             tipoDispositivoDiv.addEventListener('click', addMultipleHost);
             tipoDispositivoDiv.addEventListener('contextmenu', removeMultipleHost)
-
-            const deviceTypeHeader = document.createElement('h5');
+            
+            const deviceTypeHeader = document.createElement('p');
+            deviceTypeHeader.classList.add('tipo_dispositivo');
             deviceTypeHeader.textContent = deviceType;
 
             tipoDispositivoDiv.appendChild(deviceTypeHeader);
@@ -167,13 +171,14 @@ function createList(devices){
 function createConsole(host){
     
     const consolaDiv = document.createElement('div');
-    consolaDiv.setAttribute("id", 'consola_'+host)
     consolaDiv.addEventListener('click', showConsole);
+    consolaDiv.addEventListener('contextmenu', removeHost);
+    consolaDiv.setAttribute('id', 'div_'+host)
     consolaDiv.classList.add('consola');
     
     const consolaTA = document.createElement('textarea')
-    consolaTA.setAttribute('id', 'code_area')
-    consolaTA.classList.add('hidden')
+    consolaTA.setAttribute('id', 'consola_'+host)
+    consolaTA.classList.add('hidden', 'code_area')
     
     const consoleHeader = document.createElement('h3');
     consoleHeader.textContent = host;
