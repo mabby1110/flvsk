@@ -24,6 +24,39 @@ device_dict = {
                     'secret': "trenta"
                 },
                 'conn': None
+            },
+            "192.168.40.3": {
+                'info':{
+                    'device_type': 'cisco_ios',
+                    "ip": "192.168.40.3",
+                    'host': 'S1',
+                    'username': 'ti',
+                    "password": "trenta",
+                    'secret': "trenta"
+                },
+                'conn': None
+            },
+            "192.168.40.4": {
+                'info':{
+                    'device_type': 'cisco_ios',
+                    "ip": "192.168.40.4",
+                    'host': 'S1',
+                    'username': 'ti',
+                    "password": "trenta",
+                    'secret': "trenta"
+                },
+                'conn': None
+            },
+            "192.168.40.5": {
+                'info':{
+                    'device_type': 'cisco_ios',
+                    "ip": "192.168.40.5",
+                    'host': 'S1',
+                    'username': 'ti',
+                    "password": "trenta",
+                    'secret': "trenta"
+                },
+                'conn': None
             }
         }
     },

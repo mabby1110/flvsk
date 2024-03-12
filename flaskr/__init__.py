@@ -14,8 +14,15 @@ def create_app(test_config=None):
         # obtener datos almacenados
         devices = manager.devices
 
-        return json.dumps(devices)
+        return jsonify(devices)
 
+    @app.route("/api/ping", methods=['GET', 'POST'])
+    def make_ping():
+        ip = request.data
+        print(ip)
+        #  manager.ping()
+        return json.dumps(0)
+    
     @app.route("/api/conn", methods=['GET', 'POST'])
     def connect_devices():
         # obtener datos almacenados

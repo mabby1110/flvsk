@@ -12,9 +12,9 @@ const lista_dispositivos = document.getElementById('lista_dispositivos')
 
 // variables de estado
 let showDivA = true;
-let carrito = []
 let dispositivos_seleccionados = []
 let currentThemeIndex = 0;
+
 // temas de la app
 const darkTheme = {
     'main-bg': '#1e1e1e', // Color de fondo principal de VS Code
@@ -55,6 +55,7 @@ const obsidianTheme = {
     'error': '#FF6347', // Rojo oscuro para errores
     'selected': '#9370DB' // Morado claro para el borde seleccionado
 };
+
 // Array con los temas disponibles
 const themes = [darkTheme, obsidianTheme, lightTheme];
 
@@ -82,6 +83,7 @@ function showConsole(event){
     }
     // divB.classList.toggle('hidden', !showDivA);
 }
+
 // Función para cambiar el tema
 const switch_theme = document.getElementsByClassName('switch_theme')
 function switchTheme() {
@@ -174,8 +176,7 @@ function createList(devices){
     for (const branch in devices) {
         const branchHeader = document.createElement('h3');
         branchHeader.textContent = branch;
-        lista_dispositivos.appendChild(branchHeader);
-        
+
         const sucursalDiv = document.createElement('div');
         sucursalDiv.setAttribute("id", branch)
         sucursalDiv.classList.add('sucursal');
@@ -186,7 +187,7 @@ function createList(devices){
             tipoDispositivoDiv.classList.add('lista_dispositivos', 'hover');
             tipoDispositivoDiv.addEventListener('click', addMultipleHost);
             tipoDispositivoDiv.addEventListener('contextmenu', removeMultipleHost)
-            
+
             const deviceTypeHeader = document.createElement('p');
             deviceTypeHeader.classList.add('tipo_dispositivo');
             deviceTypeHeader.textContent = deviceType;
@@ -195,30 +196,26 @@ function createList(devices){
             
             for (const host in devices[branch][deviceType]) {
                 const hostItem = document.createElement('div');
-                hostItem.classList.add('dispositivo', 'hover');
+                hostItem.classList.add('dispositivo', 'hover', 'bgRed');
                 hostItem.setAttribute("id", branch+'_'+deviceType+'_'+host)
                 hostItem.addEventListener('click', addHost);
                 hostItem.addEventListener('contextmenu', removeHost)
                 
-                if (devices[branch][deviceType][host]['conn']) {
-                    hostItem.classList.add('bgGreen');
-                } else {
-                    hostItem.classList.add('bgRed');
-                }
-                
                 const hostName = document.createElement('p');
                 hostName.textContent = devices[branch][deviceType][host]['info']['host'];
-                hostItem.appendChild(hostName);
                 
                 const hostIP = document.createElement('p');
                 hostIP.textContent = devices[branch][deviceType][host]['info']['ip'];
+                
+                hostItem.appendChild(hostName);
                 hostItem.appendChild(hostIP);
-
+                
                 tipoDispositivoDiv.appendChild(hostItem);
             }
-
+            
             sucursalDiv.appendChild(tipoDispositivoDiv);
         }
+        lista_dispositivos.appendChild(branchHeader);
         lista_dispositivos.appendChild(sucursalDiv);
     }
 }
@@ -241,11 +238,39 @@ function createConsole(host){
     consola_individual.appendChild(consolaDiv)
 }
 
+// peticiones al servidor
+async function ping(){
+    console.log('pingggg')
+    
+}
+
+
 // al iniciar
 async function fetchDevices() {
     const response = await fetch("/api/get_devices");
     const dispositivos = await response.json();
 
     createList(dispositivos)
+    console.log(lista_dispositivos)
+    for(const s of lista_dispositivos.children){
+        if(s.classList.contains('sucursal')){
+            for(const td of s.children){
+                for(const d of td.children){
+                    if(d.classList.contains('dispositivo')){
+                        const host = d.id.split('_')[2]
+                        const ping = await fetch("/api/ping", {
+                            method: "POST", // *GET, POST, PUT, DELETE, etc.
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: host, // body data type must match "Content-Type" header
+                        });
+                        console.log("d - ", ping.json())
+
+                    }
+                }
+            }
+        }
+    }
 }
 fetchDevices()

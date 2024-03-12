@@ -43,18 +43,14 @@ class network_manager:
         except Exception as e:
             print(f"Error: {e}")
 
-    def ping(self):
-        lista_dispositivos = ["192.168.4.1", "192.168.70.2", "192.168.10.1", "192.168.10.2", "192.168.10.3"]
+    def ping(self, host):
         try:
-            output = []
             conn = self.devices['monterrey']['router']['192.168.70.1']['conn']
             conn.enable()
-            # conn.config_mode()
-            for c in lista_dispositivos:
-                r = conn.send_command(f"ping {c}")
-                output.append(r)
-                print(f"\nip {c} output:\n{r}")
-            return output
+            r = conn.send_command(f"ping {host}")
+            print(f"output:\n{r}")
+
+            return r
         except Exception as e:
             print(f"Error: {e}")
             return e
