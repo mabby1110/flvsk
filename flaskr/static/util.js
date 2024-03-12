@@ -16,48 +16,64 @@ let dispositivos_seleccionados = []
 let currentThemeIndex = 0;
 
 // temas de la app
-const darkTheme = {
-    'main-bg': '#1e1e1e', // Color de fondo principal de VS Code
-    'component-bg': '#252526', // Color de fondo de componentes en VS Code
-    'font': '#D4D4D4', // Color de fuente en VS Code
-    'button': '#0E639C', // Color de botones en VS Code
-    'bgGreen': 'rgba(0, 128, 0, 0.692)',
-    'bgRed': 'rgba(255, 0, 0, 0.692)',
-    'debug': 'Snow',
-    'info': 'LawnGreen',
-    'warn': 'GoldenRod',
-    'error': 'LightCoral',
-    'selected': '#3A96DD' // Color de selección en VS Code
-  };
-const lightTheme = {
-'main-bg': '#f2f2f2',
-'component-bg': '#ffffff',
-'font': '#333333',
-'button': '#6A5ACD', // Color morado para botones
-'bgGreen': 'rgba(0, 128, 0, 0.692)',
-'bgRed': 'rgba(255, 0, 0, 0.692)',
-'debug': 'DarkSlateBlue',
-'info': 'DarkGreen',
-'warn': 'DarkGoldenRod',
-'error': 'DarkRed',
-'selected': '#4169E1' // Color azul para el borde seleccionado
-};
 const obsidianTheme = {
-    'main-bg': 'rgb(10, 5, 40)', // Color principal
-    'component-bg': 'rgba(20, 10, 80, 0.8)', // Componentes más oscuros
-    'font': '#C8C8C8', // Fuente gris claro
-    'button': '#8B7DD1', // Botones en un tono morado
-    'bgGreen': 'rgba(0, 128, 0, 0.692)',
-    'bgRed': 'rgba(255, 0, 0, 0.692)',
-    'debug': '#A9A9A9', // Gris claro para depuración
-    'info': '#9370DB', // Morado claro para información
-    'warn': '#FFD700', // Amarillo para advertencias
-    'error': '#FF6347', // Rojo oscuro para errores
-    'selected': '#9370DB' // Morado claro para el borde seleccionado
+    'main-bg': '#38008b', // Color de fondo principal de obsidiana obscuro
+    'component-bg': '#1f0050', // Color de fondo de componentes de obsidiana obscuro
+    'font': '#f7fab9', // Color de fuente de obsidiana obscuro
+    'button': '#32164e', // Color de botones de obsidiana obscuro
+    'bgAcepted': 'rgba(0, 128, 0, 0.692)', // Fondo aceptado
+    'bgPending': 'rgba(255, 0, 0, 0.692)', // Fondo pendiente
+    'bgPRejected': 'rgba(255, 0, 0, 0.692)', // Fondo rechazado
+    'debug': 'LightSkyBlue', // Debug
+    'info': 'DeepSkyBlue', // Info
+    'warn': 'SteelBlue', // Advertencia
+    'error': 'DarkSlateGray', // Error
+    'selected': '#3A96DD' // Seleccionado
+};
+const lightTheme = {
+    'main-bg': '#F0F4F8', // Color de fondo principal claro
+    'component-bg': '#E5E5E5', // Color de fondo de componentes claro
+    'font': '#333333', // Color de fuente claro
+    'button': '#4A90E2', // Color de botones claro
+    'bgAcepted': 'rgba(0, 128, 0, 0.692)', // Fondo aceptado
+    'bgPending': 'rgba(255, 0, 0, 0.692)', // Fondo pendiente
+    'bgPRejected': 'rgba(255, 0, 0, 0.692)', // Fondo rechazado
+    'debug': 'LightSkyBlue', // Debug
+    'info': 'DeepSkyBlue', // Info
+    'warn': 'SteelBlue', // Advertencia
+    'error': 'DarkSlateGray', // Error
+    'selected': '#66B2FF' // Seleccionado
+};
+const darkTheme = {
+    'main-bg': '#080808', // Color de fondo principal de obsidiana obscuro
+    'component-bg': '#111111', // Color de fondo de componentes de obsidiana obscuro
+    'font': '#CCCCCC', // Color de fuente de obsidiana obscuro
+    'button': '#2E2E2E', // Color de botones de obsidiana obscuro
+    'bgAcepted': 'rgba(0, 128, 0, 0.692)', // Fondo aceptado
+    'bgPending': 'rgba(255, 0, 0, 0.692)', // Fondo pendiente
+    'bgPRejected': 'rgba(255, 0, 0, 0.692)', // Fondo rechazado
+    'debug': 'LightSkyBlue', // Debug
+    'info': 'DeepSkyBlue', // Info
+    'warn': 'SteelBlue', // Advertencia
+    'error': 'DarkSlateGray', // Error
+    'selected': '#3A96DD' // Seleccionado
 };
 
+
 // Array con los temas disponibles
-const themes = [darkTheme, obsidianTheme, lightTheme];
+const themes = [obsidianTheme, darkTheme, lightTheme];
+
+// Función para cambiar el tema
+const switch_theme = document.getElementsByClassName('switch_theme')
+function switchTheme() {
+    console.log(themes[currentThemeIndex])
+    for (const property in themes[currentThemeIndex]) {
+        root.style.setProperty(`--${property}`, themes[currentThemeIndex][property]);
+    }
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+}
+switch_theme[0].addEventListener('click', switchTheme)
+switch_theme[1].addEventListener('click', switchTheme)
 
 // funciones dinamicas
 function toggleView(event){
@@ -83,19 +99,6 @@ function showConsole(event){
     }
     // divB.classList.toggle('hidden', !showDivA);
 }
-
-// Función para cambiar el tema
-const switch_theme = document.getElementsByClassName('switch_theme')
-function switchTheme() {
-    console.log(themes[currentThemeIndex])
-    for (const property in themes[currentThemeIndex]) {
-        root.style.setProperty(`--${property}`, themes[currentThemeIndex][property]);
-    }
-    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-}
-switch_theme[0].addEventListener('click', switchTheme)
-switch_theme[1].addEventListener('click', switchTheme)
-
 function loadText(obj, e, id_consola){
     console.log(e)
     var file = e.target.files[0];
@@ -241,35 +244,42 @@ function createConsole(host){
 // peticiones al servidor
 async function ping(){
     console.log('pingggg')
-    
-}
-
-
-// al iniciar
-async function fetchDevices() {
-    const response = await fetch("/api/get_devices");
-    const dispositivos = await response.json();
-
-    createList(dispositivos)
-    console.log(lista_dispositivos)
     for(const s of lista_dispositivos.children){
         if(s.classList.contains('sucursal')){
             for(const td of s.children){
                 for(const d of td.children){
                     if(d.classList.contains('dispositivo')){
+                        
+                        // se cambia el bg para vizualizar el proceso
+                        d.style.backgroundColor = "yellow"
+
+                        // hacer ping x host
                         const host = d.id.split('_')
+                        
                         const ping = await fetch("/api/ping", {
-                            method: "POST", // *GET, POST, PUT, DELETE, etc.
+                            method: "POST",
                             headers: {
-                              "Content-Type": "application/json",
+                                "Content-Type": "application/json",
                             },
-                            body: JSON.stringify(host), // body data type must match "Content-Type" header
-                        });
-                        console.log("d - ", ping.json())
+                            body: JSON.stringify(host),
+                        })
+                        const x = await ping.json()
+                        
+                        d.style.backgroundColor = x? "green": "Red"
                     }
                 }
             }
         }
     }
+}
+
+
+// al iniciar
+async function fetchDevices() {
+    const response = await fetch("/api/devices");
+    const dispositivos = await response.json();
+
+    createList(dispositivos)
+    ping()
 }
 fetchDevices()
