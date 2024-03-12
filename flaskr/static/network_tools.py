@@ -10,6 +10,7 @@ class network_manager:
 
     def __init__(self):
         self.devices = db.device_dict
+        self.adminHost = db.device_dict['monterrey']['router']['192.168.70.1']
     
     def conectar(self, device):
         # try:
@@ -45,9 +46,9 @@ class network_manager:
 
     def ping(self, host):
         try:
-            conn = self.devices['monterrey']['router']['192.168.70.1']['conn']
+            conn = self.adminHost['monterrey']['router']['192.168.70.1']['conn']
             conn.enable()
-            r = conn.send_command(f"ping {host}")
+            r = conn.send_command(f"ping {host[2]}")
             print(f"output:\n{r}")
 
             return r

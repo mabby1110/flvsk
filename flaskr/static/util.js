@@ -257,16 +257,15 @@ async function fetchDevices() {
             for(const td of s.children){
                 for(const d of td.children){
                     if(d.classList.contains('dispositivo')){
-                        const host = d.id.split('_')[2]
+                        const host = d.id.split('_')
                         const ping = await fetch("/api/ping", {
                             method: "POST", // *GET, POST, PUT, DELETE, etc.
                             headers: {
                               "Content-Type": "application/json",
                             },
-                            body: host, // body data type must match "Content-Type" header
+                            body: JSON.stringify(host), // body data type must match "Content-Type" header
                         });
                         console.log("d - ", ping.json())
-
                     }
                 }
             }
