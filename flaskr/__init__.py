@@ -16,9 +16,16 @@ def create_app(test_config=None):
 
     @app.route("/api/ping", methods=['GET', 'POST'])
     def make_ping():
-        ip = request.json
-        r = manager.ping(ip)
-        return jsonify(r)
+        s = request.json[0]
+        dt = request.json[1]
+        ip = request.json[2]
+
+        # print(ip)
+        # r = manager.ping(ip)
+        device = manager.devices[s][dt][ip]
+        device = manager.conectar(device)
+        print('con', manager.devices[s][dt][ip])
+        return jsonify(device['conn'])
 
     @app.route("/", methods=['GET', 'POST'])
     def index():

@@ -24,7 +24,7 @@ class network_manager:
         # except Exception as e:
         #     print(f"falló conexion con {device['info']['host']}")
         #     device['conn'] = False
-        device['conn'] = 'True'
+        device['conn'] = True
         
         return device
 
