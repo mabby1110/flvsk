@@ -15,16 +15,16 @@ def create_app(test_config=None):
         return jsonify(devices)
 
     @app.route("/api/ping", methods=['GET', 'POST'])
-    def make_ping():
-        s = request.json[0]
-        dt = request.json[1]
+    def ping():
+        branch = request.json[0]
+        deviceType = request.json[1]
         ip = request.json[2]
 
         # print(ip)
         # r = manager.ping(ip)
-        device = manager.devices[s][dt][ip]
+        device = manager.devices[branch][deviceType][ip]
         device = manager.conectar(device)
-        print('con', manager.devices[s][dt][ip])
+        print('con', manager.devices[s][deviceType][ip])
         return jsonify(device['conn'])
 
     @app.route("/", methods=['GET', 'POST'])
@@ -33,6 +33,6 @@ def create_app(test_config=None):
             # ASIGNAR ADMIN HOST
             print(manager.adminHost)
             return render_template("index.html",
-                                   devices = '',
-                                   respuesta='')
+                                    devices = '',
+                                    respuesta='')
     return app
