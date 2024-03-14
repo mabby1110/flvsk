@@ -1,30 +1,20 @@
 {% extends 'base.html' %}
 
-{% block nav %}
-    <h1 class="switch_theme">🍯 Honey Host</h1>
-{% endblock %}
-
 {% block body %}
-<div class="componente acciones_dispositivos">
-    <h2>Acciones</h2>
-    <button id="ping" onclick="ping(event)">ping</button>
-</div>
+    <div class="componente acciones_dispositivos">
+        <h2>Acciones</h2>
+        <button id="ping" onclick="ping(event)">ping</button>
+    </div>
 
-<div class="componente acciones_consolas">
-    <h2 id="titulo_consola">Consola individual</h2>
-    <button id="toggleButton" onclick="toggleView(event)">Toggle</button>
-</div>
+    <div class="componente acciones_consolas">
+        <h2 id="titulo_consola">Consola individual</h2>
+        <button id="toggleButton" onclick="toggleView(event)">Toggle</button>
+    </div>
 
-<div id="lista_dispositivos" class="componente dispositivos scrollB"></div>
+    <div id="lista_dispositivos" class="componente dispositivos scrollB"></div>
 
-<div id="lista_consolas" class="componente consolas scrollB">
-    <div id="consola_individual" class="scrollB"></div>
-    <div id="consola_global" class="hidden"></div>
-</div>
-{% endblock %}
-
-{% block footer %}
-    <p>Universidad autonoma de Guadalajara</p>
-    <p>© 2024 Todos los derechos reservados para mabby1110 </p>
-    <h1 class="switch_theme">🐝</h1>
+    <div id="lista_consolas" class="componente consolas scrollB">
+        <div id="consola_individual" class="scrollB"></div>
+        <div id="consola_global" class="hidden"></div>
+    </div>
 {% endblock %}

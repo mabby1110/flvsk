@@ -27,13 +27,8 @@ body {
     height: auto;
     margin: 0 auto;
 }
-nav {
-    display: flex;
-    align-items: center;
-    min-height: 4rem;
-    padding: 1rem;
-}
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -76,6 +71,12 @@ div {
 }
 /* #############################
 app */
+nav {
+    display: flex;
+    align-items: center;
+    min-height: 6vh;
+    padding: 1rem;
+}
 footer {
     display: flex;
     align-items: center;
@@ -83,11 +84,9 @@ footer {
     padding: 2rem 2rem;
 }
 .container {
-    box-sizing: border-box;
     width:100%;
-    height: 90vh;
-    padding: 0 1rem 1rem;
-    margin: 0;
+    height: 92.519vh;
+    padding: 0 1rem;
 
     display: grid;
     grid-template-columns: minmax(15rem, 1fr) minmax(20rem, 2fr);
@@ -97,7 +96,6 @@ footer {
 /* #############################
 componentes */
 .componente {
-    box-sizing: border-box;
     background-color:var(--component-bg);
     padding: 1rem;
     display: flex;
@@ -117,10 +115,15 @@ componentes */
 .consolas {
     grid-area: 2 / 2 / 3 / 3;
 }
+.login {
+    grid-area: 1 / 1 / 3 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /* #############################
 contenido componentes*/
 .dispositivo {
-    box-sizing: border-box;
     display: flex;
     justify-content: space-around;
     border-style: solid;
@@ -150,13 +153,11 @@ contenido componentes*/
 }
 
 .consola h3 {
-    box-sizing: border-box;
     border-width: 0.3rem;
     border-color: var(--button);
     padding: 0.3rem;
 }
 .code_area{
-    box-sizing: border-box;
     border-width: 0.3rem;
     border-color: var(--button);
     background-color: black;
