@@ -29,7 +29,7 @@ device_dict = {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.40.3",
-                    'host': 'S1',
+                    'host': 'S2',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -40,7 +40,7 @@ device_dict = {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.40.4",
-                    'host': 'S1',
+                    'host': 'S3',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -51,7 +51,7 @@ device_dict = {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.40.5",
-                    'host': 'S1',
+                    'host': 'S4',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -140,7 +140,7 @@ device_dict = {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.10.5",
-                    'host': 'S2',
+                    'host': 'S4',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"
@@ -151,7 +151,7 @@ device_dict = {
                 'info':{
                     'device_type': 'cisco_ios',
                     "ip": "192.168.10.4",
-                    'host': 'S3',
+                    'host': 'S5',
                     'username': 'ti',
                     "password": "trenta",
                     'secret': "trenta"

@@ -1,21 +1,23 @@
 :root {
-    --main-bg: #F0F4F8;
-    --component-bg: #E5E5E5;
-    --font: #333333;
-    --button: #4A90E2;
-    --bgAcepted: rgba(0, 128, 0, 0.692);
-    --bgPending: rgba(255, 0, 0, 0.692);
-    --bgPRejected: rgba(255, 0, 0, 0.692);
-    --debug: LightSkyBlue;
-    --info: DeepSkyBlue;
-    --warn: SteelBlue;
-    --error: DarkSlateGray;
-    --selected: #66B2FF;
+    --main-bg: #FFFFFF; /* Fondo principal: blanco */
+    --component-bg: #F0F0F0; /* Fondo de componentes: gris muy claro */
+    --text-font: #333333; /* Texto: gris oscuro para contraste */
+    --button-font: #FFFFFF; /* Texto de botón: blanco para contraste en botones oscuros */
+    --header-font: #000000; /* Encabezados: negro para máxima legibilidad */
+    --button: #BBBBBB; /* Botones: gris medio para diferenciar del fondo */
+    --bgAcepted: rgba(0, 0, 0, 0.8); /* Fondo aceptado: negro con alta opacidad */
+    --bgPending: rgba(76, 76, 76, 0.8); /* Fondo pendiente: gris oscuro */
+    --bgRejected: rgba(128, 128, 128, 0.8); /* Fondo rechazado: gris medio */
+    --debug: #CCCCCC; /* Debug: gris claro */
+    --info: #AAAAAA; /* Info: gris medio-claro */
+    --warn: #888888; /* Advertencia: gris medio */
+    --error: #555555; /* Error: gris medio-oscuro */
+    --selected: #E5E5E5; /* Seleccionado: gris muy claro, casi blanco */
 }
 body,html {
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: var(--main-bg);
-    color: var(--font);
+    color: var(--text-font);
     margin: 0;
 }
 html {
@@ -37,14 +39,17 @@ nav {
 }
 button {
     background-color: var(--button);
-    color: var(--font);
+    color: var(--button-font);
     padding: 0.2rem;
 }
-h1{
+h1, h2, h3 {
     cursor: pointer;
+    color: var(--header-font);
 }
-h2, h3, h4, h5 {
+h4 {
     pointer-events: none;
+    font-weight: 450;
+    color: var(--header-font);
 }
 p, input {
     list-style: none;
@@ -107,6 +112,7 @@ componentes */
 }
 .dispositivos {
     grid-area: 2 / 1 / 3 / 2;
+    color: black;
 }
 .consolas {
     grid-area: 2 / 2 / 3 / 3;
@@ -164,6 +170,9 @@ contenido componentes*/
 estilos dinamicos */
 .bgAcepted {
     background-color: var(--bgAcepted);
+}
+.bgPending {
+    background-color: var(--bgPending);
 }
 .bgRejected {
     background-color: var(--bgRejected);

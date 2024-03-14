@@ -7,62 +7,66 @@ const eventoClickDerecho = new MouseEvent('contextmenu', {
 });
 // variables estaticas
 const root = document.documentElement;
-const consola_individual = document.getElementById('consola_individual')
-const lista_dispositivos = document.getElementById('lista_dispositivos')
 
 // variables de estado
 let showDivA = true;
 let dispositivos_seleccionados = []
-let currentThemeIndex = 0;
+let currentThemeIndex = 2;
+let dispositivos
 
 // temas de la app
 const obsidianTheme = {
-    'main-bg': '#38008b', // Color de fondo principal de obsidiana obscuro
-    'component-bg': '#1f0050', // Color de fondo de componentes de obsidiana obscuro
-    'font': '#f7fab9', // Color de fuente de obsidiana obscuro
-    'button': '#32164e', // Color de botones de obsidiana obscuro
-    'bgAcepted': 'rgba(0, 128, 0, 0.692)', // Fondo aceptado
-    'bgPending': 'rgba(255, 0, 0, 0.692)', // Fondo pendiente
-    'bgPRejected': 'rgba(255, 0, 0, 0.692)', // Fondo rechazado
-    'debug': 'LightSkyBlue', // Debug
-    'info': 'DeepSkyBlue', // Info
-    'warn': 'SteelBlue', // Advertencia
-    'error': 'DarkSlateGray', // Error
-    'selected': '#3A96DD' // Seleccionado
+    'main-bg': '#38008b',
+    'component-bg': '#1f0050',
+    'text-font': '#f7fab9',
+    'button-font': '#f7fab9', // Texto claro para contraste
+    'header-font': '#FFFFFF', // Encabezados claros para máximo contraste
+    'button': '#32164e',
+    'bgAcepted': 'rgba(129, 199, 132, 0.8)',
+    'bgPending': 'rgba(255, 213, 79, 0.8)',
+    'bgRejected': 'rgba(239, 83, 80, 0.8)',
+    'debug': 'LightSkyBlue',
+    'info': 'DeepSkyBlue',
+    'warn': 'SteelBlue',
+    'error': 'DarkSlateGray',
+    'selected': '#3A96DD'
 };
 const lightTheme = {
-    'main-bg': '#F0F4F8', // Color de fondo principal claro
-    'component-bg': '#E5E5E5', // Color de fondo de componentes claro
-    'font': '#333333', // Color de fuente claro
-    'button': '#4A90E2', // Color de botones claro
-    'bgAcepted': 'rgba(0, 128, 0, 0.692)', // Fondo aceptado
-    'bgPending': 'rgba(255, 0, 0, 0.692)', // Fondo pendiente
-    'bgPRejected': 'rgba(255, 0, 0, 0.692)', // Fondo rechazado
-    'debug': 'LightSkyBlue', // Debug
-    'info': 'DeepSkyBlue', // Info
-    'warn': 'SteelBlue', // Advertencia
-    'error': 'DarkSlateGray', // Error
-    'selected': '#66B2FF' // Seleccionado
-};
-const darkTheme = {
-    'main-bg': '#080808', // Color de fondo principal de obsidiana obscuro
-    'component-bg': '#111111', // Color de fondo de componentes de obsidiana obscuro
-    'font': '#CCCCCC', // Color de fuente de obsidiana obscuro
-    'button': '#2E2E2E', // Color de botones de obsidiana obscuro
-    'bgAcepted': 'rgba(0, 128, 0, 0.692)', // Fondo aceptado
-    'bgPending': 'rgba(255, 0, 0, 0.692)', // Fondo pendiente
-    'bgPRejected': 'rgba(255, 0, 0, 0.692)', // Fondo rechazado
-    'debug': 'LightSkyBlue', // Debug
-    'info': 'DeepSkyBlue', // Info
-    'warn': 'SteelBlue', // Advertencia
-    'error': 'DarkSlateGray', // Error
-    'selected': '#3A96DD' // Seleccionado
+    'main-bg': '#F0F4F8',
+    'component-bg': '#E5E5E5',
+    'text-font': '#333333', // Actualizado para representar texto general
+    'button-font': '#FFFFFF', // Blanco para contraste en botones
+    'header-font': '#000000', // Negro para encabezados, asegura contraste y atención
+    'button': '#4A90E2',
+    'bgAcepted': 'rgba(100, 221, 23, 0.8)',
+    'bgPending': 'rgba(253, 216, 53, 0.8)',
+    'bgRejected': 'rgba(229, 57, 53, 0.8)',
+    'debug': 'LightSkyBlue',
+    'info': 'DeepSkyBlue',
+    'warn': 'SteelBlue',
+    'error': 'DarkSlateGray',
+    'selected': '#66B2FF'
 };
 
+const darkTheme = {
+    'main-bg': '#080808',
+    'component-bg': '#111111',
+    'text-font': '#CCCCCC', // Gris claro para texto, asegura legibilidad
+    'button-font': '#CCCCCC', // Manteniendo coherencia, el texto de botones también es gris claro
+    'header-font': '#FFFFFF', // Blanco para encabezados, destaca sobre fondos oscuros
+    'button': '#333333',
+    'bgAcepted': 'rgba(76, 175, 80, 0.8)',
+    'bgPending': 'rgba(255, 235, 59, 0.8)',
+    'bgRejected': 'rgba(244, 67, 54, 0.8)',
+    'debug': 'LightSkyBlue',
+    'info': 'DeepSkyBlue',
+    'warn': 'DodgerBlue',
+    'error': 'FireBrick',
+    'selected': '#4A90E2'
+};
 
 // Array con los temas disponibles
 const themes = [obsidianTheme, darkTheme, lightTheme];
-
 // Función para cambiar el tema
 const switch_theme = document.getElementsByClassName('switch_theme')
 function switchTheme() {
@@ -98,17 +102,6 @@ function showConsole(event){
         }
     }
     // divB.classList.toggle('hidden', !showDivA);
-}
-function loadText(obj, e, id_consola){
-    console.log(e)
-    var file = e.target.files[0];
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-        document.getElementById(id_consola).value = e.target.result;
-    }
-
-    reader.readAsText(file);
 }
 function addHost(event) {
     host = event.target.id
@@ -173,9 +166,22 @@ function removeMultipleHost(event) {
         }
     }
 }
+function loadText(obj, e, id_consola){
+    console.log(e)
+    var file = e.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+        document.getElementById(id_consola).value = e.target.result;
+    }
+
+    reader.readAsText(file);
+}
 
 // creacion de componentes
 function createList(devices){
+    const lista_dispositivos = document.getElementById('lista_dispositivos')
+
     for (const branch in devices) {
         const branchHeader = document.createElement('h3');
         branchHeader.textContent = branch;
@@ -191,16 +197,17 @@ function createList(devices){
             tipoDispositivoDiv.addEventListener('click', addMultipleHost);
             tipoDispositivoDiv.addEventListener('contextmenu', removeMultipleHost)
 
-            const deviceTypeHeader = document.createElement('p');
+            const deviceTypeHeader = document.createElement('h4');
             deviceTypeHeader.classList.add('tipo_dispositivo');
             deviceTypeHeader.textContent = deviceType;
 
             tipoDispositivoDiv.appendChild(deviceTypeHeader);
             
             for (const host in devices[branch][deviceType]) {
+                const hostname  = devices[branch][deviceType][host]['info']['host']
                 const hostItem = document.createElement('div');
-                hostItem.classList.add('dispositivo', 'hover', 'bgRed');
-                hostItem.setAttribute("id", branch+'_'+deviceType+'_'+host)
+                hostItem.classList.add('dispositivo', 'hover');
+                hostItem.setAttribute("id", hostname+'_'+host)
                 hostItem.addEventListener('click', addHost);
                 hostItem.addEventListener('contextmenu', removeHost)
                 
@@ -223,6 +230,8 @@ function createList(devices){
     }
 }
 function createConsole(host){
+    const consola_individual = document.getElementById('consola_individual')
+
     const consolaDiv = document.createElement('div');
     consolaDiv.addEventListener('click', showConsole);
     consolaDiv.addEventListener('contextmenu', removeHost);
@@ -242,44 +251,46 @@ function createConsole(host){
 }
 
 // peticiones al servidor
-async function ping(){
-    console.log('pingggg')
-    for(const s of lista_dispositivos.children){
-        if(s.classList.contains('sucursal')){
-            for(const td of s.children){
-                for(const d of td.children){
-                    if(d.classList.contains('dispositivo')){
-                        
-                        // se cambia el bg para vizualizar el proceso
-                        d.style.backgroundColor = "yellow"
-
-                        // hacer ping x host
-                        const host = d.id.split('_')
-                        
-                        const ping = await fetch("/api/ping", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(host),
-                        })
-                        const x = await ping.json()
-                        
-                        d.style.backgroundColor = x? "green": "Red"
-                    }
-                }
-            }
-        }
-    }
+async function ping(d){
+    console.log('pingggg', d)
+    htmlObj = document.getElementById(d['info']['host']+'_'+d['info']['ip'])
+    
+    // se cambia el bg para vizualizar el proceso
+    htmlObj.classList.add("bgPending")
+    
+    const ping = await fetch("/api/ping", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(d),
+    })
+    const x = await ping.json()
+    
+    // se cambia el bg acorde al resultado
+    const bg = x['conn']? 'bgAcepted':'bgRejected'
+    htmlObj.classList.add(bg)
+    htmlObj.classList.remove("bgPending")
+    console.log('pongggg', bg, x['conn'])
 }
-
 
 // al iniciar
 async function fetchDevices() {
     const response = await fetch("/api/devices");
-    const dispositivos = await response.json();
+    dispositivos = await response.json();
 
+    // se muestran los dispositivos registrados
+    // estado: desconectado
     createList(dispositivos)
-    ping()
+
+    // ping a todos los dispositivos registrados
+    // estado: pendiente > conectado/desconectado
+    for (s in dispositivos){
+        for(td in dispositivos[s]){
+            for(d in dispositivos[s][td]){
+                ping(dispositivos[s][td][d])
+            }
+        }
+    }
 }
 fetchDevices()

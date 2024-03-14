@@ -28,16 +28,16 @@ class network_manager:
         
         return device
 
-    def ping(self, host):
+    def ping(self, ip):
         # try:
         #     conn = self.adminHost['monterrey']['router']['192.168.70.1']['conn']
         #     conn.enable()
-        #     r = conn.send_command(f"ping {host[2]}")
+        #     r = conn.send_command(f"ping {ip}")
         #     print(f"output:\n{r}")
 
         #     return r
         # except Exception as e:
         #     print(f"Error: {e}")
             
-            e = True
-            return e
+        r = True
+        return r
