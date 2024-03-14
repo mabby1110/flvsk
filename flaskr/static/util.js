@@ -70,7 +70,6 @@ const themes = [obsidianTheme, darkTheme, lightTheme];
 // Función para cambiar el tema
 const switch_theme = document.getElementsByClassName('switch_theme')
 function switchTheme() {
-    console.log(themes[currentThemeIndex])
     for (const property in themes[currentThemeIndex]) {
         root.style.setProperty(`--${property}`, themes[currentThemeIndex][property]);
     }
@@ -124,6 +123,7 @@ function addHost(event) {
         
         console.log('add', host, dispositivos_seleccionados)
     }
+    conectar(host)
 }
 function removeHost(event) {
     event.preventDefault();
@@ -252,8 +252,7 @@ function createConsole(host){
 
 // peticiones al servidor
 async function ping(d){
-    console.log('pingggg', d)
-    htmlObj = document.getElementById(d['info']['host']+'_'+d['info']['ip'])
+    const htmlObj = document.getElementById(d['info']['host']+'_'+d['info']['ip'])
     
     // se cambia el bg para vizualizar el proceso
     htmlObj.classList.add("bgPending")
@@ -271,7 +270,11 @@ async function ping(d){
     const bg = x['conn']? 'bgAcepted':'bgRejected'
     htmlObj.classList.add(bg)
     htmlObj.classList.remove("bgPending")
-    console.log('pongggg', bg, x['conn'])
+}
+
+async function conectar(d){
+
+    console.log('conectando ...', d)
 }
 
 // al iniciar
@@ -294,3 +297,4 @@ async function fetchDevices() {
     }
 }
 fetchDevices()
+switchTheme()

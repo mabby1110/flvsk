@@ -17,6 +17,11 @@ def create_app(test_config=None):
     @app.route("/api/ping", methods=['GET', 'POST'])
     def ping():
         host = request.json
+        return jsonify(manager.ping(host['info']['ip']))
+
+    @app.route("/api/conectar", methods=['GET', 'POST'])
+    def conectar():
+        host = request.json
         return jsonify(manager.conectar(host))
 
     @app.route("/", methods=['GET', 'POST'])
